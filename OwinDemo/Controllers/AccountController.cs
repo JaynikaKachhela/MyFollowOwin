@@ -74,7 +74,7 @@ namespace OwinDemo.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser {UserName = model.UserName, Email = model.Email,Address=model.Address,DateOfBirth=model.DateOfBirth,Password=model.Password,ProductOwner=null };
+                var user = new ApplicationUser {UserName = model.UserName, Email = model.Email,Address=model.Address,DateOfBirth=model.DateOfBirth,Password=model.Password,ProductOwner=new ProductOwner() };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

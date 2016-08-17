@@ -23,12 +23,31 @@ require('rxjs/add/operator/distinctUntilChanged');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/switchMap');
 require('rxjs/add/operator/toPromise');
-var OwnerService = (function () {
-    function OwnerService(http) {
+var UserService = (function () {
+    function UserService(http) {
         this.http = http;
         this.ownerUrl = 'api/ApplicationUsers';
+        this.productUrl = 'api/Products';
+        this.followUrl = 'api/Followers';
     }
-    OwnerService.prototype.setOwner = function (owner) {
+    UserService.prototype.getProduct = function () {
+        return this.http.get(this.productUrl)
+            .map(function (response) { return response.json(); });
+    };
+    UserService.prototype.getFollowedProduct = function () {
+        return this.http.get(this.productUrl + '/5')
+            .map(function (response) { return response.json(); });
+    };
+    UserService.prototype.deleteFollower = function (product) {
+        return this.http.delete(this.followUrl + "/" + product.Id).map(function (response) { return response.json(); });
+    };
+    UserService.prototype.newFollow = function (product) {
+        var headers = new http_1.Headers({
+            'Content-Type': 'application/json',
+        });
+        return this.http.put(this.followUrl + '/' + product.Id, { headers: headers }).map(function (res) { return res.json(); });
+    };
+    UserService.prototype.setOwner = function (owner) {
         var headers = new http_1.Headers({
             'Content-Type': 'application/json'
         });
@@ -36,11 +55,11 @@ var OwnerService = (function () {
             .post(this.ownerUrl, JSON.stringify(owner), { headers: headers })
             .map(function (res) { return res.json().data; });
     };
-    OwnerService.prototype.extractData = function (res) {
+    UserService.prototype.extractData = function (res) {
         var body = res.json();
         return body.data || {};
     };
-    OwnerService.prototype.handleError = function (error) {
+    UserService.prototype.handleError = function (error) {
         // In a real world app, we might use a remote logging infrastructure
         // We'd also dig deeper into the error to get a better message
         var errMsg = (error.message) ? error.message :
@@ -48,11 +67,11 @@ var OwnerService = (function () {
         console.error(errMsg); // log to console instead
         return Observable_1.Observable.throw(errMsg);
     };
-    OwnerService = __decorate([
+    UserService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])
-    ], OwnerService);
-    return OwnerService;
+    ], UserService);
+    return UserService;
 }());
-exports.OwnerService = OwnerService;
-//# sourceMappingURL=owner.service.js.map
+exports.UserService = UserService;
+//# sourceMappingURL=user.service.js.map

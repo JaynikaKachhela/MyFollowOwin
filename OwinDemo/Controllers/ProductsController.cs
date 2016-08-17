@@ -10,6 +10,9 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using OwinDemo.Models;
 using Microsoft.AspNet.Identity;
+using System.Web.Security;
+using System.Web;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace OwinDemo.Controllers
 {
@@ -24,13 +27,28 @@ namespace OwinDemo.Controllers
         [HttpGet]
         public IQueryable<Product> GetProducts()
         {
-
+            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var Id = User.Identity.GetUserId();
+            bool ProductOwner = userManager.IsInRole(Id, "ProductOwner");
+            bool EndUser = userManager.IsInRole(Id, "EndUser");
+
             List<Product> products = db.Products.ToList();
-            foreach (var product in products)
+            foreach (var product in products.ToList())
             {
-                if (product.ProductOwnerId != Id)
-                    products.Remove(product);
+                if (ProductOwner)
+                {
+                    if (product.ProductOwnerId != Id)
+                        products.Remove(product);
+                }
+
+                if (EndUser)
+                {
+                    foreach (var follower in db.Followers.ToList())
+                    {
+                        if ((Id == follower.UserId) && (product.Id==follower.ProductId))
+                            products.Remove(product);
+                    }
+                }
             }
             return products.AsQueryable();
         }
@@ -112,18 +130,25 @@ namespace OwinDemo.Controllers
         }
 
 
-        //// GET: api/Products/5
+        // GET: api/Products/5
         //[ResponseType(typeof(Product))]
-        //public IHttpActionResult GetProduct(int id)
-        //{
-        //    Product product = db.Products.Find(id);
-        //    if (product == null)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpGet]
+        public IQueryable<Product> GetProduct(int id)
+        {
+            var Id = User.Identity.GetUserId();
+            List<Product> products = new List<Product>();
+            foreach (var follower in db.Followers.ToList())
+            {
+                if (follower.UserId == Id)
+                {
+                    Product product = db.Products.Find(follower.ProductId);
+                    products.Add(product);
+                }
+                
+            }            
+            return products.AsQueryable();           
+        }
 
-        //    return Ok(product);
-        //}
         protected override void Dispose(bool disposing)
         {
             if (disposing)

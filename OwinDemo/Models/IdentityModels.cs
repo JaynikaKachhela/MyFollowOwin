@@ -27,5 +27,7 @@ namespace OwinDemo.Models
         public Address Address { get; set; }
         public ProductOwner ProductOwner { get; set; }
         public ICollection<Product> Products { get; set; }
-    } 
+        public ICollection<Followers> Followers { get; set; }
+
+    }
 }
