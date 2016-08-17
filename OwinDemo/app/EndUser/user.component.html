@@ -91,7 +91,7 @@
                     {{product.AppstoreUrl}}
                 </td>
                 <td>
-                    <button class='btn-primary' (click)="followProduct(product)">Follow</button>
+                    <button class='btn-primary' [hidden]="hideElement" (click)="followProduct(product)">Follow</button>
                 </td>
             </tr>
         </table>

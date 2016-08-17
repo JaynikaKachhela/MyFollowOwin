@@ -30,12 +30,14 @@ var UserComponent = (function () {
     };
     UserComponent.prototype.showFollowProduct = function () {
         this.isFolllowProducts = !this.isFolllowProducts;
+        this.getFollowedProduct();
     };
     UserComponent.prototype.showForm = function () {
         this.beOwner = !this.beOwner;
     };
     UserComponent.prototype.showProduct = function () {
         this.isProducts = !this.isProducts;
+        this.getProducts();
     };
     UserComponent.prototype.onSubmit = function (owner) {
         var _this = this;
@@ -55,8 +57,13 @@ var UserComponent = (function () {
         }, function (err) {
             _this.errorMessage = err;
         });
+        this.getProduct();
         this.getProducts();
         console.log("unfollow...");
+    };
+    UserComponent.prototype.getProduct = function () {
+        this.isFolllowProducts = false;
+        this.isProducts = false;
     };
     UserComponent.prototype.followProduct = function (product) {
         var _this = this;
@@ -66,8 +73,8 @@ var UserComponent = (function () {
         }, function (err) {
             _this.errorMessage = err;
         });
+        this.getProduct();
         this.getProducts();
-        this.getFollowedProduct();
         console.log("Added...");
     };
     UserComponent.prototype.getFollowedProduct = function () {

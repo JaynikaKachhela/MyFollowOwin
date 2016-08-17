@@ -33,12 +33,15 @@ export class UserComponent implements OnInit {
     }
     showFollowProduct(): void {
         this.isFolllowProducts = !this.isFolllowProducts;
+        this.getFollowedProduct();
+
     }
     showForm(): void {
         this.beOwner = !this.beOwner;
     }
     showProduct(): void {
         this.isProducts = !this.isProducts;
+        this.getProducts();
     }
     onSubmit(owner: Owner) {
         console.log(owner);
@@ -48,7 +51,6 @@ export class UserComponent implements OnInit {
             }, err => {
                 this.errorMessage = err;
             });
-
     }
     unfollowProduct(product: Product) {
         this.userservice.deleteFollower(product)
@@ -58,8 +60,13 @@ export class UserComponent implements OnInit {
             err => {
                 this.errorMessage = err;
             });
+        this.getProduct();
         this.getProducts();
         console.log("unfollow...");
+    }
+    getProduct() {        
+        this.isFolllowProducts = false;
+        this.isProducts = false;
     }
     followProduct(product: Product) {
         this.userservice.newFollow(product)
@@ -69,8 +76,9 @@ export class UserComponent implements OnInit {
             err => {
                 this.errorMessage = err;
             });
+        this.getProduct();
         this.getProducts();
-        this.getFollowedProduct();
+
         console.log("Added...");
        
     }
