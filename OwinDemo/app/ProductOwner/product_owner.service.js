@@ -27,6 +27,7 @@ var ProductOwnerService = (function () {
     function ProductOwnerService(http) {
         this.http = http;
         this.productUrl = 'api/Products';
+        this.productUpdateUrl = 'api/ProductUpdates';
     }
     ProductOwnerService.prototype.setProduct = function (product) {
         var headers = new http_1.Headers({
@@ -47,6 +48,14 @@ var ProductOwnerService = (function () {
             'Content-Type': 'application/json',
         });
         return this.http.put(this.productUrl + '/' + product.Id, JSON.stringify(product), { headers: headers }).map(function (res) { return res.json(); });
+    };
+    ProductOwnerService.prototype.setProductUpdate = function (productUpdate) {
+        var headers = new http_1.Headers({
+            'Content-Type': 'application/json'
+        });
+        return this.http
+            .post(this.productUpdateUrl, JSON.stringify(productUpdate), { headers: headers })
+            .map(function (res) { return res.json().data; });
     };
     ProductOwnerService.prototype.extractData = function (res) {
         var body = res.json();

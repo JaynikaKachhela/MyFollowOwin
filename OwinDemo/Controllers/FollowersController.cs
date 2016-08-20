@@ -44,12 +44,12 @@ namespace OwinDemo.Controllers
         [HttpDelete]
         public IHttpActionResult DeleteFollowers(int id)
         {
-            Product p1 = db.Products.Find(id);
+            //Product p1 = db.Products.Find(id);
             var Id = User.Identity.GetUserId();
             Followers follower1 = new Followers();
             foreach(Followers follower in db.Followers.ToList())
             {
-                if((follower.UserId==Id)&&(p1.Id==follower.ProductId))
+                if((follower.UserId==Id)&&(id==follower.ProductId))
                     follower1 = follower;
             }
             

@@ -10,16 +10,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var product_owner_service_1 = require('./product_owner.service');
+var productUpdate_1 = require('./productUpdate');
 var product_1 = require('./product');
+var user_service_1 = require('../EndUser/user.service');
 var ProductOwnerComponent = (function () {
-    function ProductOwnerComponent(ownerservice) {
+    function ProductOwnerComponent(ownerservice, userservice) {
         this.ownerservice = ownerservice;
+        this.userservice = userservice;
         this.newProduct = false;
         this.oldProduct = false;
+        this.isFolllowProducts = false;
+        this.isProducts = false;
         this.productDetail = false;
+        this.productUpdate = false;
         this.editProduct = false;
         this.products = new Array();
         this.product = new product_1.Product();
+        this.productsUpdate = new productUpdate_1.ProductUpdate();
+        this.productUpdates = new Array();
     }
     ProductOwnerComponent.prototype.showForm = function () {
         this.newProduct = !this.newProduct;
@@ -32,12 +40,41 @@ var ProductOwnerComponent = (function () {
         this.productDetail = false;
         this.getProducts();
     };
+    ProductOwnerComponent.prototype.showFollowProduct = function () {
+        this.isFolllowProducts = !this.isFolllowProducts;
+        this.getFollowedProduct();
+    };
+    ProductOwnerComponent.prototype.getAllProducts = function () {
+        var _this = this;
+        var displayOwner = this.userservice.getProduct()
+            .subscribe(function (products) {
+            _this.products = products;
+            console.log(_this.products);
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+    };
+    ProductOwnerComponent.prototype.getFollowedProduct = function () {
+        var _this = this;
+        var displayOwner = this.userservice.getFollowedProduct()
+            .subscribe(function (products) {
+            _this.followedProduct = products;
+            console.log(_this.followedProduct);
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+    };
+    ProductOwnerComponent.prototype.showProduct = function () {
+        this.isProducts = !this.isProducts;
+        this.getProducts();
+    };
     ProductOwnerComponent.prototype.onNotEdit = function () {
         this.editProduct = false;
     };
     ProductOwnerComponent.prototype.ngOnInit = function () {
         //this.getProducts();
         this.productDetail = false;
+        this.productUpdate = false;
     };
     ProductOwnerComponent.prototype.onSubmit = function (product) {
         var _this = this;
@@ -49,8 +86,33 @@ var ProductOwnerComponent = (function () {
             _this.errorMessage = err;
         });
         this.getProducts();
+        this.newProduct = false;
         console.log("Insered !!!");
         this.product = null;
+    };
+    ProductOwnerComponent.prototype.followProduct = function (product) {
+        var _this = this;
+        this.userservice.newFollow(product)
+            .subscribe(function (products) {
+            _this.products = products;
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+        this.getAllProducts();
+        this.getFollowedProduct();
+        console.log("Added...");
+    };
+    ProductOwnerComponent.prototype.unfollowProduct = function (product) {
+        var _this = this;
+        this.userservice.deleteFollower(product)
+            .subscribe(function (products) {
+            _this.products = products;
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+        this.getFollowedProduct();
+        this.getAllProducts();
+        console.log("unfollow...");
     };
     ProductOwnerComponent.prototype.getProducts = function () {
         var _this = this;
@@ -61,6 +123,24 @@ var ProductOwnerComponent = (function () {
         }, function (err) {
             _this.errorMessage = err;
         });
+    };
+    ProductOwnerComponent.prototype.newProductUpdate = function (product) {
+        this.productUpdate = true;
+        this.productDetail = false;
+        this.product = product;
+        console.log("form");
+    };
+    ProductOwnerComponent.prototype.addProductUpdate = function (productupdate) {
+        var _this = this;
+        console.log("log ");
+        productupdate.ProductId = this.product.Id;
+        var postOwner = this.ownerservice.setProductUpdate(productupdate)
+            .subscribe(function (productUpdates) {
+            _this.productUpdates = productUpdates;
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+        console.log(productupdate);
     };
     ProductOwnerComponent.prototype.updateData = function (product) {
         this.editProduct = true;
@@ -99,9 +179,9 @@ var ProductOwnerComponent = (function () {
         core_1.Component({
             selector: 'product-owner',
             templateUrl: 'app/ProductOwner/product_owner.component.html',
-            providers: [product_owner_service_1.ProductOwnerService]
+            providers: [product_owner_service_1.ProductOwnerService, user_service_1.UserService]
         }), 
-        __metadata('design:paramtypes', [product_owner_service_1.ProductOwnerService])
+        __metadata('design:paramtypes', [product_owner_service_1.ProductOwnerService, user_service_1.UserService])
     ], ProductOwnerComponent);
     return ProductOwnerComponent;
 }());

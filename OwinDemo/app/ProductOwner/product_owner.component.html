@@ -1,17 +1,20 @@
 ﻿<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showForm()' *ngIf="!newProduct">NewProduct</button>
 <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showForm()' *ngIf="newProduct">HideForm</button>
 <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showTable()' *ngIf="!oldProduct">Products</button>
-<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showTable()' *ngIf="oldProduct">HideProducts</button>   
+<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showTable()' *ngIf="oldProduct">HideProducts</button> 
 
-
+<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showProduct()' *ngIf="!isProducts">AllProducts</button>
+<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showProduct()' *ngIf="isProducts">HideAllProducts</button>
+<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showFollowProduct()' *ngIf="!isFolllowProducts">FollowingProducts</button>
+<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showFollowProduct()' *ngIf="isFolllowProducts">HideFollowingProducts</button>
+  
  
 <div *ngIf="!productDetail">
-
     <div *ngIf="newProduct" class="form-group">
         <div class="form-horizontal">
             <form #addProduct="ngForm" class="form-horizontal">
                 <b>ProductName:</b><br />
-                <input type="text" #ProductName="ngForm" ngControl="Name" [(ngModel)]="product.Name" required /><br />
+                <input type="text" #Name="ngForm" ngControl="Name" [(ngModel)]="product.Name" required /><br />
                 <b>Description:</b><br />
                 <input type="text" #Description="ngForm" ngControl="Description" [(ngModel)]="product.Description" required /><br />
                 <b>Type:</b><br />
@@ -30,8 +33,6 @@
             </form>
         </div>
     </div>
-
-
     <div class='table-responsive' *ngIf="oldProduct">
         <table class='table'>
             <tr>
@@ -50,8 +51,11 @@
                 <td>
                     {{product.Description}}
                 </td>
-                <td>
-                    {{product.Type}}
+                <td >
+                    <h6 *ngIf="product.Type===1">Mobile</h6>
+                    <h6 *ngIf="product.Type===2">web</h6>
+                    <h6 *ngIf="product.Type===3">IoT</h6>
+
                 </td>
                 <td>
                     {{product.HomepageUrl}}
@@ -65,21 +69,120 @@
                 <td>
                     <button class='btn-primary' (click)="updateData(product)">Edit</button>
                     <button class='btn-primary' (click)="detailProduct(product)">Detail</button>
-                    <button class='btn-primary' (click)="onDelete(product)">Delete</button>
-
-                </td>
+                    <button class='btn-primary' (click)="onDelete(product)">Delete</button></td>
             </tr>
         </table>
     </div>
-
 </div>
+
+<div class='table-responsive' *ngIf="isFolllowProducts">
+    <br /><h2 color="blue">FollowingProducts</h2>
+    <table class='table'>
+        <tr>
+            <th>ProductName</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>HomepageUrl</th>
+            <th>PlaystoreUrl</th>
+            <th>AppstoreUrl</th>
+            <th>Action</th>
+        </tr>
+        <tr *ngFor="let product of followedProduct">
+            <td>
+                {{product.Name}}
+            </td>
+            <td>
+                {{product.Description}}
+            </td>
+            <td>
+                <h6 *ngIf="product.Type===1">Mobile</h6>
+                <h6 *ngIf="product.Type===2">web</h6>
+                <h6 *ngIf="product.Type===3">IoT</h6>
+
+            </td>
+            <td>
+                {{product.HomepageUrl}}
+            </td>
+            <td>
+                {{product.PlaystoreUrl}}
+            </td>
+            <td>
+                {{product.AppstoreUrl}}
+            </td>
+            <td>
+                <button class='btn-primary' (click)="unfollowProduct(product)">UnFollow</button>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class='table-responsive' *ngIf="isProducts">
+    <br /><h2 color="blue">Products</h2>
+
+    <table class='table'>
+        <tr>
+            <th>ProductName</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>HomepageUrl</th>
+            <th>PlaystoreUrl</th>
+            <th>AppstoreUrl</th>
+            <th>Action</th>
+        </tr>
+        <tr *ngFor="let product of products">
+            <td>
+                {{product.Name}}
+            </td>
+            <td>
+                {{product.Description}}
+            </td>
+            <td>
+                <h6 *ngIf="product.Type===1">Mobile</h6>
+                <h6 *ngIf="product.Type===2">web</h6>
+                <h6 *ngIf="product.Type===3">IoT</h6>
+
+            </td>
+            <td>
+                {{product.HomepageUrl}}
+            </td>
+            <td>
+                {{product.PlaystoreUrl}}
+            </td>
+            <td>
+                {{product.AppstoreUrl}}
+            </td>
+            <td>
+                <button class='btn-primary' [hidden]="hideElement" (click)="followProduct(product)">Follow</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
 <div *ngIf="productDetail">
     <h5>ProductName:{{product.Name}}</h5>
     <h5>Description:{{product.Description}}</h5>
-    <h5>Type:{{product.Type}}</h5>
+    <h5>Type:
+    <h6 *ngIf="product.Type===1">Mobile</h6>
+    <h6 *ngIf="product.Type===2">web</h6>
+    <h6 *ngIf="product.Type===3">IoT</h6>
+    </h5>
     <h5>HomepageUrl:{{product.HomepageUrl}}</h5>
     <h5>PlaystoreUrl:{{product.PlaystoreUrl}}</h5>
     <h5>AppstoreUrl:{{product.AppstoreUrl}}</h5>
+    <button class='btn-primary' (click)="newProductUpdate(product)">NewProductUpdate</button>
+</div>
+
+<div *ngIf="productUpdate">
+    <form #addProductUpdate="ngForm" class="form-horizontal">
+        <b>ProductName:</b><br />
+        <input type="text" #ProductName="ngForm" ngControl="Name" [(ngModel)]="product.Name" required /><br />
+        <b>Introduction:</b><br />
+        <input type="text" #Introduction="ngForm" ngControl="Introduction" [(ngModel)]="productsUpdate.Introduction" required /><br />
+        <b>Detail:</b><br />
+        <input type="text" #Detail="ngForm" ngControl="Detail" [(ngModel)]="productsUpdate.Detail" required /><br />
+        <b>Media:</b><br />
+        <input class="btn-file" type="file" #Media="ngForm" [(ngModel)]="productsUpdate.Media" ngControl="Media" id="Media" /><br />
+        <button class='btn-primary' (click)="addProductUpdate(productsUpdate)">NewProductUpdate</button>
+     </form>
 </div>
 
 <div *ngIf="editProduct">
@@ -104,4 +207,3 @@
         <button class='btn-primary' (click)="onNotEdit()">Back</button>
     </form>
 </div>
-

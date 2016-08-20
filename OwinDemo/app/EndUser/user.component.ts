@@ -78,7 +78,6 @@ export class UserComponent implements OnInit {
             });
         this.getProduct();
         this.getProducts();
-
         console.log("Added...");
        
     }

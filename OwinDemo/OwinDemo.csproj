@@ -241,6 +241,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ProductUpdatesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -374,6 +375,7 @@
     <TypeScriptCompile Include="app\EndUser\user.service.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\ProductOwner\product.ts" />
+    <TypeScriptCompile Include="app\ProductOwner\productUpdate.ts" />
     <TypeScriptCompile Include="app\ProductOwner\product_owner.component.ts" />
     <TypeScriptCompile Include="app\ProductOwner\product_owner.service.ts" />
     <TypeScriptCompile Include="typings\globals\core-js\index.d.ts" />

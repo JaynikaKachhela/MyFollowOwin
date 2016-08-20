@@ -2,6 +2,8 @@
 import { Http, Response, Headers } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import { Product }          from './product';
+import { ProductUpdate }          from './productUpdate';
+
 // import 'rxjs/Rx'; // adds ALL RxJS statics & operators to Observable
 // See node_module/rxjs/Rxjs.js
 // Import just the rxjs statics and operators we need for THIS app.
@@ -18,6 +20,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class ProductOwnerService {
     private productUrl = 'api/Products';
+    private productUpdateUrl ='api/ProductUpdates'
    constructor(private http: Http) { }
 
    setProduct(product: Product) {
@@ -44,6 +47,15 @@ export class ProductOwnerService {
        
        return this.http.put(this.productUrl + '/' + product.Id, JSON.stringify(product), { headers: headers }).map(res => res.json());
   
+   }
+   setProductUpdate(productUpdate: ProductUpdate) {
+       let headers = new Headers({
+           'Content-Type': 'application/json'
+       });
+
+       return this.http
+           .post(this.productUpdateUrl, JSON.stringify(productUpdate), { headers: headers })
+           .map(res => res.json().data)
    }
 
     private extractData(res: Response) {

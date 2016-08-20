@@ -40,7 +40,10 @@
                 {{product.Description}}
             </td>
             <td>
-                {{product.Type}}
+                <h6 *ngIf="product.Type===1">Mobile</h6>
+                <h6 *ngIf="product.Type===2">web</h6>
+                <h6 *ngIf="product.Type===3">IoT</h6>
+
             </td>
             <td>
                 {{product.HomepageUrl}}
@@ -57,8 +60,7 @@
         </tr>
     </table>
     </div>
-
-    <div class='table-responsive' *ngIf="isProducts">
+<div class='table-responsive' *ngIf="isProducts">
         <br /><h2 color="blue">Products</h2>
 
         <table class='table'>
@@ -79,7 +81,10 @@
                     {{product.Description}}
                 </td>
                 <td>
-                    {{product.Type}}
+                    <h6 *ngIf="product.Type===1">Mobile</h6>
+                    <h6 *ngIf="product.Type===2">web</h6>
+                    <h6 *ngIf="product.Type===3">IoT</h6>
+
                 </td>
                 <td>
                     {{product.HomepageUrl}}
