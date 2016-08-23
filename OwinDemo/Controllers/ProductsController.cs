@@ -20,8 +20,6 @@ namespace OwinDemo.Controllers
     public class ProductsController : ApiController
     {
         private OwinContext db = new OwinContext();
-
-
         // GET: api/Products
         [Authorize]
         [HttpGet]
@@ -135,18 +133,46 @@ namespace OwinDemo.Controllers
         [HttpGet]
         public IQueryable<Product> GetProduct(int id)
         {
-            var Id = User.Identity.GetUserId();
             List<Product> products = new List<Product>();
-            foreach (var follower in db.Followers.ToList())
+
+            var Id = User.Identity.GetUserId();
+            if (id == 5)
             {
-                if (follower.UserId == Id)
+
+                foreach (var follower in db.Followers.ToList())
                 {
-                    Product product = db.Products.Find(follower.ProductId);
-                    products.Add(product);
+                    if (follower.UserId == Id)
+                    {
+                        Product product = db.Products.Find(follower.ProductId);
+                        products.Add(product);
+                    }
+
                 }
-                
-            }            
-            return products.AsQueryable();           
+            }
+            if (id == 7)
+            {
+                foreach (var product in db.Products.ToList())
+                {
+                    if ((Id != product.ProductOwnerId))
+                    {
+                        products.Add(product);
+                        break;
+                    }
+                }
+                foreach(var product in products.ToList())
+                {
+                    foreach (var follower in db.Followers.ToList())
+                    {
+                        if (follower.ProductId == product.Id && follower.UserId == Id)
+                        {
+                                products.Remove(product);
+                                break;
+                        }
+
+                    }
+                }
+            }
+            return products.AsQueryable();
         }
 
         protected override void Dispose(bool disposing)

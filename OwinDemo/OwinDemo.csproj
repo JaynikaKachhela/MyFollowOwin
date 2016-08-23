@@ -342,17 +342,7 @@
     <Content Include="typings\globals\node\typings.json" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Shared\_UserLayout.cshtml" />
-    <Content Include="Views\ProductOwners1\Create.cshtml" />
-    <Content Include="Views\ProductOwners1\Delete.cshtml" />
-    <Content Include="Views\ProductOwners1\Details.cshtml" />
-    <Content Include="Views\ProductOwners1\Edit.cshtml" />
-    <Content Include="Views\ProductOwners1\Index.cshtml" />
     <Content Include="Views\User\Admin.cshtml" />
-    <Content Include="Views\ApplicationUsers1\Create.cshtml" />
-    <Content Include="Views\ApplicationUsers1\Delete.cshtml" />
-    <Content Include="Views\ApplicationUsers1\Details.cshtml" />
-    <Content Include="Views\ApplicationUsers1\Edit.cshtml" />
-    <Content Include="Views\ApplicationUsers1\Index.cshtml" />
     <Content Include="Views\User\ProductOwner.cshtml" />
   </ItemGroup>
   <ItemGroup>

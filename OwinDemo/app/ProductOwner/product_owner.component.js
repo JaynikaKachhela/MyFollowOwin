@@ -25,10 +25,17 @@ var ProductOwnerComponent = (function () {
         this.productUpdate = false;
         this.editProduct = false;
         this.products = new Array();
+        this.allProducts = new Array();
+        this.followedProduct = new Array();
         this.product = new product_1.Product();
         this.productsUpdate = new productUpdate_1.ProductUpdate();
         this.productUpdates = new Array();
     }
+    ProductOwnerComponent.prototype.ngOnInit = function () {
+        //this.getProducts();
+        this.productDetail = false;
+        this.productUpdate = false;
+    };
     ProductOwnerComponent.prototype.showForm = function () {
         this.newProduct = !this.newProduct;
         this.productDetail = false;
@@ -40,19 +47,37 @@ var ProductOwnerComponent = (function () {
         this.productDetail = false;
         this.getProducts();
     };
-    ProductOwnerComponent.prototype.showFollowProduct = function () {
-        this.isFolllowProducts = !this.isFolllowProducts;
-        this.getFollowedProduct();
-    };
-    ProductOwnerComponent.prototype.getAllProducts = function () {
+    ProductOwnerComponent.prototype.getProducts = function () {
         var _this = this;
-        var displayOwner = this.userservice.getProduct()
+        var displayOwner = this.ownerservice.getProduct()
             .subscribe(function (products) {
             _this.products = products;
-            console.log(_this.products);
+            //console.log(this.products);
         }, function (err) {
             _this.errorMessage = err;
         });
+    };
+    ProductOwnerComponent.prototype.showProduct = function () {
+        this.isProducts = !this.isProducts;
+        this.editProduct = false;
+        this.productDetail = false;
+        this.getAllProducts();
+    };
+    ProductOwnerComponent.prototype.getAllProducts = function () {
+        var _this = this;
+        var displayOwner = this.ownerservice.getAllProduct()
+            .subscribe(function (products) {
+            _this.allProducts = products;
+            console.log(_this.allProducts);
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+    };
+    ProductOwnerComponent.prototype.showFollowProduct = function () {
+        this.isFolllowProducts = !this.isFolllowProducts;
+        this.editProduct = false;
+        this.productDetail = false;
+        this.getFollowedProduct();
     };
     ProductOwnerComponent.prototype.getFollowedProduct = function () {
         var _this = this;
@@ -63,18 +88,6 @@ var ProductOwnerComponent = (function () {
         }, function (err) {
             _this.errorMessage = err;
         });
-    };
-    ProductOwnerComponent.prototype.showProduct = function () {
-        this.isProducts = !this.isProducts;
-        this.getProducts();
-    };
-    ProductOwnerComponent.prototype.onNotEdit = function () {
-        this.editProduct = false;
-    };
-    ProductOwnerComponent.prototype.ngOnInit = function () {
-        //this.getProducts();
-        this.productDetail = false;
-        this.productUpdate = false;
     };
     ProductOwnerComponent.prototype.onSubmit = function (product) {
         var _this = this;
@@ -90,57 +103,9 @@ var ProductOwnerComponent = (function () {
         console.log("Insered !!!");
         this.product = null;
     };
-    ProductOwnerComponent.prototype.followProduct = function (product) {
-        var _this = this;
-        this.userservice.newFollow(product)
-            .subscribe(function (products) {
-            _this.products = products;
-        }, function (err) {
-            _this.errorMessage = err;
-        });
-        this.getAllProducts();
-        this.getFollowedProduct();
-        console.log("Added...");
-    };
-    ProductOwnerComponent.prototype.unfollowProduct = function (product) {
-        var _this = this;
-        this.userservice.deleteFollower(product)
-            .subscribe(function (products) {
-            _this.products = products;
-        }, function (err) {
-            _this.errorMessage = err;
-        });
-        this.getFollowedProduct();
-        this.getAllProducts();
-        console.log("unfollow...");
-    };
-    ProductOwnerComponent.prototype.getProducts = function () {
-        var _this = this;
-        var displayOwner = this.ownerservice.getProduct()
-            .subscribe(function (products) {
-            _this.products = products;
-            //console.log(this.products);
-        }, function (err) {
-            _this.errorMessage = err;
-        });
-    };
-    ProductOwnerComponent.prototype.newProductUpdate = function (product) {
-        this.productUpdate = true;
-        this.productDetail = false;
-        this.product = product;
-        console.log("form");
-    };
-    ProductOwnerComponent.prototype.addProductUpdate = function (productupdate) {
-        var _this = this;
-        console.log("log ");
-        productupdate.ProductId = this.product.Id;
-        var postOwner = this.ownerservice.setProductUpdate(productupdate)
-            .subscribe(function (productUpdates) {
-            _this.productUpdates = productUpdates;
-        }, function (err) {
-            _this.errorMessage = err;
-        });
-        console.log(productupdate);
+    ProductOwnerComponent.prototype.onNotEdit = function () {
+        this.editProduct = false;
+        this.product = null;
     };
     ProductOwnerComponent.prototype.updateData = function (product) {
         this.editProduct = true;
@@ -174,6 +139,48 @@ var ProductOwnerComponent = (function () {
         });
         this.getProducts();
         console.log("Deleted...");
+    };
+    ProductOwnerComponent.prototype.followProduct = function (product) {
+        var _this = this;
+        this.userservice.newFollow(product)
+            .subscribe(function (products) {
+            _this.products = products;
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+        this.isProducts = false;
+        this.isFolllowProducts = false;
+        console.log("Added...");
+    };
+    ProductOwnerComponent.prototype.unfollowProduct = function (product) {
+        var _this = this;
+        this.userservice.deleteFollower(product)
+            .subscribe(function (products) {
+            _this.products = products;
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+        this.isProducts = false;
+        this.isFolllowProducts = false;
+        console.log("unfollow...");
+    };
+    ProductOwnerComponent.prototype.newProductUpdate = function (product) {
+        this.productUpdate = true;
+        this.productDetail = false;
+        this.product = product;
+        console.log("form");
+    };
+    ProductOwnerComponent.prototype.addProductUpdate = function (productupdate) {
+        var _this = this;
+        console.log("log ");
+        productupdate.ProductId = this.product.Id;
+        var postOwner = this.ownerservice.setProductUpdate(productupdate)
+            .subscribe(function (productUpdates) {
+            _this.productUpdates = productUpdates;
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+        console.log(productupdate);
     };
     ProductOwnerComponent = __decorate([
         core_1.Component({

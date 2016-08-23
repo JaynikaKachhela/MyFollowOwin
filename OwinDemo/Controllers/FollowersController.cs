@@ -73,7 +73,7 @@ namespace OwinDemo.Controllers
         //    {
         //        foreach (var follower in db.Followers.ToList())
         //        {
-        //            if (!(Id == follower.UserId) && !(product.Id == follower.ProductId))
+        //            if (Id == follower.UserId)
         //                products.Remove(product);
         //        }
         //    }

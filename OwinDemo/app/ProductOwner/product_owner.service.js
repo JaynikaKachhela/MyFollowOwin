@@ -40,6 +40,10 @@ var ProductOwnerService = (function () {
         return this.http.get(this.productUrl)
             .map(function (response) { return response.json(); });
     };
+    ProductOwnerService.prototype.getAllProduct = function () {
+        return this.http.get(this.productUrl + '/7')
+            .map(function (response) { return response.json(); });
+    };
     ProductOwnerService.prototype.deleteProduct = function (product) {
         return this.http.delete(this.productUrl + "/" + product.Id).map(function (response) { return response.json(); });
     };

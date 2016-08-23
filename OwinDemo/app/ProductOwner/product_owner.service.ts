@@ -35,7 +35,11 @@ export class ProductOwnerService {
        return this.http.get(this.productUrl)
            .map(response => response.json());
    }
-
+    
+   getAllProduct() {
+       return this.http.get(this.productUrl + '/7')
+           .map(response => response.json());
+   }
    deleteProduct(product: Product) {
        return this.http.delete(this.productUrl + "/" + product.Id).map(response => response.json());
    }

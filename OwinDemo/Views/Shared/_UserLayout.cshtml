@@ -27,8 +27,12 @@
 
 </head>
 <body>
-   
-    
+    <div class="navbar navbar-inverse navbar-fixed-top">
+       <div class="navbar-collapse collapse">
+           @Html.Partial("_LoginPartial")
+        </div>
+    </div>
+
     <div class="container body-content">
         @RenderBody()
         <hr />

@@ -34,6 +34,8 @@
         </div>
     </div>
     <div class='table-responsive' *ngIf="oldProduct">
+        <br /><h2 color="blue">Products</h2>
+
         <table class='table'>
             <tr>
                 <th>ProductName</th>
@@ -116,7 +118,7 @@
     </table>
 </div>
 <div class='table-responsive' *ngIf="isProducts">
-    <br /><h2 color="blue">Products</h2>
+    <br /><h2 color="blue">AllProducts</h2>
 
     <table class='table'>
         <tr>
@@ -128,7 +130,7 @@
             <th>AppstoreUrl</th>
             <th>Action</th>
         </tr>
-        <tr *ngFor="let product of products">
+        <tr *ngFor="let product of allProducts">
             <td>
                 {{product.Name}}
             </td>
