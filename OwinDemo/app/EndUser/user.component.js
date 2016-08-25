@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var user_service_1 = require('./user.service');
+var app_service_1 = require('../app.service');
 var FollowProducts_1 = require('../EndUser/FollowProducts');
 var tobeProductOwner_1 = require('../EndUser/tobeProductOwner');
 var Product_1 = require('../EndUser/Product');
@@ -22,7 +22,7 @@ var UserComponent = (function () {
             selector: 'my-user',
             templateUrl: 'app/EndUser/user.component.html',
             directives: [router_1.ROUTER_DIRECTIVES],
-            providers: [user_service_1.UserService],
+            providers: [app_service_1.Service],
             precompile: [Product_1.Productcomponent, tobeProductOwner_1.ToBeProductOwnercomponent, FollowProducts_1.FollowProductcomponent]
         }), 
         __metadata('design:paramtypes', [])

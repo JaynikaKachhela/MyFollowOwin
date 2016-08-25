@@ -10,18 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_deprecated_1 = require("@angular/router-deprecated");
-var product_1 = require('../ProductOwner/product');
-var user_service_1 = require('./user.service');
+var product_1 = require('../Model/product');
+var app_service_1 = require('../app.service');
 //Import for design purpose
 var common_1 = require('@angular/common');
 var Productcomponent = (function () {
     function Productcomponent(userservice) {
         this.userservice = userservice;
-        this.abc = false;
-        this.approved = [];
         this.products = new Array();
         this.product = new product_1.Product();
-        this.parentRouter = router_deprecated_1.Router;
     }
     Productcomponent.prototype.ngOnInit = function () {
         console.log("loaded..");
@@ -40,23 +37,19 @@ var Productcomponent = (function () {
     Productcomponent.prototype.followProduct = function (product) {
         var _this = this;
         this.userservice.newFollow(product)
-            .subscribe(function (products) {
-            _this.products = products;
-        }, function (err) {
-            _this.errorMessage = err;
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () {
+            _this.getProducts();
         });
-        this.approved[this.product.Id] = true;
-        this.abc = true;
         console.log("Added...");
     };
     Productcomponent = __decorate([
         core_1.Component({
             selector: "Products",
             templateUrl: "app/EndUser/products.html",
-            providers: [user_service_1.UserService],
+            providers: [app_service_1.Service],
             directives: [router_deprecated_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [user_service_1.UserService])
+        __metadata('design:paramtypes', [app_service_1.Service])
     ], Productcomponent);
     return Productcomponent;
 }());

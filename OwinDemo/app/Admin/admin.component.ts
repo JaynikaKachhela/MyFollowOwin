@@ -1,26 +1,24 @@
 ﻿import { Component, OnInit, Input } from '@angular/core';
-import {   } from './Owner';
-import { Owner } from './owner';
-import { AdminService } from './admin.service';
+import { Owners } from '../Model/productOwner';
+import { Service } from '../app.service';
 
 @Component({
     selector: 'my-admin',
     templateUrl: 'app/Admin/admin-form.component.html',
-    providers: [AdminService]
+    providers: [Service]
 })
 export class AdminComponent implements OnInit {
-    owners: Array<Owner>;
-    owners1: Array<Owner>;
+    owners: Array<Owners>;
+    owners1: Array<Owners>;
 
-    owner: Owner;
+    owner: Owners;
     Click: boolean = false;
-    approved: any[] = [];
-    rejected: any[] = [];
+   
     errorMessage: string;
-    constructor(private adminservice: AdminService) {
-        this.owners = new Array<Owner>();
-        this.owners1 = new Array<Owner>();
-        this.owner = new Owner();
+    constructor(private adminservice: Service) {
+        this.owners = new Array<Owners>();
+        this.owners1 = new Array<Owners>();
+        this.owner = new Owners();
     }
 
     ngOnInit() {
@@ -38,20 +36,18 @@ export class AdminComponent implements OnInit {
     }
     UpdateOwnerData() {
         this.adminservice.UpdateOwnerState(this.owner)
-            .subscribe((owners) => {
-                this.owners = owners
-            },
-            err => {
-                this.errorMessage = err;
+            .subscribe(
+                    function (response) { console.log("Success Response" + response) },
+                    function (error) { console.log("Error happened" + error) },
+                    () => { this.getOwners(); 
             });
     }
     deleteOwnerData(ownerId: string) {
         this.adminservice.deleteOwnerState(this.owner.Id)
-            .subscribe((owners) => {
-                this.owners1 = owners
-            },
-            err => {
-                this.errorMessage = err;
+            .subscribe(
+                   function (response) { console.log("Success Response" + response) },
+                   function (error) { console.log("Error happened" + error) },
+                   () => {this.getOwners(); 
             });
        
     }
@@ -60,14 +56,12 @@ export class AdminComponent implements OnInit {
         this.Click = true;
         this.owner.Id = ownerId;
         this.deleteOwnerData(this.owner.Id);
-        this.rejected[this.owner.Id] = true;
-       
+      
     }
     Approve(ownerId: string) {
         this.Click = true;
         this.owner.Id = ownerId;
         this.UpdateOwnerData();
-        this.approved[this.owner.Id] = true;
        
     }
 }

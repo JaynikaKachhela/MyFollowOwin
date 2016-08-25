@@ -108,43 +108,8 @@ namespace OwinDemo.Controllers
             }
 
             return StatusCode(HttpStatusCode.NoContent);
-            
+
         }
-
-        //// PUT: api/ApplicationUsers/5
-        //[ResponseType(typeof(void))]
-        //public IHttpActionResult PutApplicationUser(string id, ApplicationUser applicationUser)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    if (id != applicationUser.Id)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    db.Entry(applicationUser).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        db.SaveChanges();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!ApplicationUserExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return StatusCode(HttpStatusCode.NoContent);
-        //}
         // DELETE: api/ApplicationUsers/5
         [ResponseType(typeof(ApplicationUser))]
         [HttpDelete]
@@ -173,7 +138,7 @@ namespace OwinDemo.Controllers
 
             return CreatedAtRoute("DefaultApi", new { id = applicationUser.Id }, applicationUser);
         }
-       
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -188,4 +153,19 @@ namespace OwinDemo.Controllers
             return db.Users.Count(e => e.Id == id) > 0;
         }
     }
+
+    ////PUT: api/ApplicationUsers/5
+    //[ResponseType(typeof(void))]
+    //[HttpGet]
+    //public IQueryable PutApplicationUser(int id)
+    //{
+    //    var Id = User.Identity.GetUserId();
+    //    ApplicationUser user = db.Users.Find(Id);
+    //    List<ApplicationUser> Users = new List<ApplicationUser>();
+    //    if (user.ProductOwner.CompanyName != null)
+    //        Users.Add(user);
+    //    return Users.AsQueryable();
+    //}
+
+
 }

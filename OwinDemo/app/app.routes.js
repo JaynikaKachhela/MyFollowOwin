@@ -2,7 +2,6 @@
 var router_1 = require('@angular/router');
 var Product_1 = require('./EndUser/Product');
 var FollowProducts_1 = require('./EndUser/FollowProducts');
-var FollowProducts_2 = require('./ProductOwner/FollowProducts');
 var tobeProductOwner_1 = require('./EndUser/tobeProductOwner');
 var ownProduct_1 = require('./ProductOwner/ownProduct');
 var newProduct_1 = require('./ProductOwner/newProduct');
@@ -14,7 +13,7 @@ var routes = [
     },
     {
         path: 'followProducts',
-        component: FollowProducts_2.FollowedProductcomponent
+        component: FollowProducts_1.FollowProductcomponent
     },
     {
         path: 'followedProducts',

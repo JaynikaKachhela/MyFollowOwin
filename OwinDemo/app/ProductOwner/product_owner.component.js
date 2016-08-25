@@ -9,13 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var product_owner_service_1 = require('./product_owner.service');
 var router_1 = require('@angular/router');
 var ownProduct_1 = require('./ownProduct');
 var newProduct_1 = require('./newProduct');
-var FollowProducts_1 = require('../EndUser/FollowProducts');
+var FollowProducts_1 = require('./FollowProducts');
 var allProduct_1 = require('./allProduct');
-var user_service_1 = require('../EndUser/user.service');
+var app_service_1 = require('../app.service');
 var ProductOwnerComponent = (function () {
     function ProductOwnerComponent() {
     }
@@ -24,8 +23,8 @@ var ProductOwnerComponent = (function () {
             selector: 'product-owner',
             templateUrl: 'app/ProductOwner/product_owner.component.html',
             directives: [router_1.ROUTER_DIRECTIVES],
-            providers: [user_service_1.UserService, product_owner_service_1.ProductOwnerService],
-            precompile: [ownProduct_1.OwnProductcomponent, allProduct_1.AllProductcomponent, newProduct_1.NewProductcomponent, FollowProducts_1.FollowProductcomponent]
+            providers: [app_service_1.Service],
+            precompile: [ownProduct_1.OwnProductcomponent, allProduct_1.AllProductcomponent, newProduct_1.NewProductcomponent, FollowProducts_1.FollowedProductcomponent]
         }), 
         __metadata('design:paramtypes', [])
     ], ProductOwnerComponent);

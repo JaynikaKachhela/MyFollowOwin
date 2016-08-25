@@ -1,6 +1,5 @@
-﻿<div class='table-responsive' *ngIf="!followed">
+﻿<div class='table-responsive'>
     <br /><h2 color="blue">AllProducts</h2>
-
     <table class='table'>
         <tr>
             <th>ProductName</th>
@@ -38,7 +37,4 @@
             </td>
         </tr>
     </table>
-</div>
-<div *ngIf="followed" class="alert alert-success box-msg">
-    <strong>following new product...</strong><button (click)="onBack()">Back</button>
 </div>

@@ -1,4 +1,4 @@
-﻿export class Owner {
+﻿export class Owners {
     public Id: string
     public UserName :string
     public ProductOwner:ProductOwner

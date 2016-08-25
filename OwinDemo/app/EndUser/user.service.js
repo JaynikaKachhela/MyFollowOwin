@@ -11,10 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 var Observable_1 = require('rxjs/Observable');
-// import 'rxjs/Rx'; // adds ALL RxJS statics & operators to Observable
-// See node_module/rxjs/Rxjs.js
-// Import just the rxjs statics and operators we need for THIS app.
-// Statics
 require('rxjs/add/observable/throw');
 // Operators
 require('rxjs/add/operator/catch');
@@ -39,21 +35,19 @@ var UserService = (function () {
             .map(function (response) { return response.json(); });
     };
     UserService.prototype.deleteFollower = function (product) {
-        return this.http.delete(this.followUrl + "/" + product.Id).map(function (response) { return response.json(); });
+        return this.http.delete(this.followUrl + "/" + product.Id);
     };
     UserService.prototype.newFollow = function (product) {
         var headers = new http_1.Headers({
             'Content-Type': 'application/json',
         });
-        return this.http.put(this.followUrl + '/' + product.Id, { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.put(this.followUrl + '/' + product.Id, { headers: headers });
     };
     UserService.prototype.setOwner = function (owner) {
         var headers = new http_1.Headers({
             'Content-Type': 'application/json'
         });
-        return this.http
-            .post(this.ownerUrl, JSON.stringify(owner), { headers: headers })
-            .map(function (res) { return res.json().data; });
+        return this.http.post(this.ownerUrl, JSON.stringify(owner), { headers: headers });
     };
     UserService.prototype.extractData = function (res) {
         var body = res.json();

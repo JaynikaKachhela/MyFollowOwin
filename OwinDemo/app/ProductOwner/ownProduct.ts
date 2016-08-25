@@ -2,23 +2,23 @@
 import {ROUTER_DIRECTIVES, Router} from "@angular/router-deprecated";
 //Import for design purpose
 import {FORM_DIRECTIVES} from '@angular/common';
-import {Product} from './product';
-import { ProductUpdate } from './productUpdate'
-import { ProductOwnerService } from './product_owner.service';
-import { UserService } from '../EndUser/user.service';
+import {Product} from '../Model/product';
+import { ProductUpdate } from '../Model/productUpdate'
+import { Service } from '../app.service';
 
 
 @Component({
     selector: "ownProducts",
     templateUrl: "app/ProductOwner/ownProduct.html",
-    providers: [],
+    providers: [Service],
     directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES]
 })
 export class OwnProductcomponent implements OnInit {
    
     productUpdate: boolean = false;
     detailProduct: boolean = false;
-    deleted: boolean = false;
+   
+    updates: boolean = false;
     editProduct: boolean = false;
     unfollowed: any[] = [];
 
@@ -28,7 +28,7 @@ export class OwnProductcomponent implements OnInit {
     productUpdates: Array<ProductUpdate>;
     errorMessage: string;
 
-    constructor(private ownerservice: ProductOwnerService, private userservice: UserService) {
+    constructor(private service: Service) {
         this.products = new Array<Product>();
         this.product = new Product();
         this.productsUpdate = new ProductUpdate();
@@ -39,10 +39,11 @@ export class OwnProductcomponent implements OnInit {
         this.getProducts();
         this.detailProduct = false;
         this.productUpdate = false;
+        this.updates = false;
     }
-    
+   
     getProducts() {
-        var displayOwner = this.ownerservice.getProduct()
+        var displayOwner = this.service.getProducts()
             .subscribe((products) => {
                 this.products = products
 
@@ -52,10 +53,10 @@ export class OwnProductcomponent implements OnInit {
             });
     }
     onBack() {
-        this.deleted = false;
         this.detailProduct = false;
         this.editProduct = false;
         this.productUpdate = false;
+        this.updates=false;
     }
   
 
@@ -65,15 +66,14 @@ export class OwnProductcomponent implements OnInit {
     }
 
     onEdit(product: Product) {
-        this.ownerservice.editProduct(product)
-            .subscribe((products) => {
-                this.products = products
-            },
-            err => {
-                this.errorMessage = err;
+        this.service.editProduct(product)
+            .subscribe(
+            function (response) { console.log("Success Response" + response) },
+            function (error) { console.log("Error happened" + error) },
+            () => {
+                this.getProducts(); 
             });
         this.editProduct = false;
-        this.getProducts();
         console.log("Edited...");
         
     }
@@ -83,19 +83,28 @@ export class OwnProductcomponent implements OnInit {
     }
 
     onDelete(product: Product) {
-        this.ownerservice.deleteProduct(product)
-            .subscribe((products) => {
-                this.products = products
-            },
-            err => {
-                this.errorMessage = err;
+        this.service.deleteProduct(product)
+            .subscribe(
+            function (response) { console.log("Success Response" + response) },
+            function (error) { console.log("Error happened" + error) },
+            () => {
+                this.getProducts();
             });
-        this.getProducts();
-        this.deleted = true;
         console.log("Deleted...");
 
     }
-  
+    newUpdate(productsUpdate: ProductUpdate) {
+        console.log(productsUpdate);
+        this.productsUpdate.ProductId = this.product.Id;
+        var postOwner = this.service.setProductUpdate(this.productsUpdate)
+            .subscribe(
+            function (response) { console.log("Success Response" + response) },
+            function (error) { console.log("Error happened" + error) },
+            () => {
+                this.showUpdates(this.product.Id); 
+            });
+        console.log("Added");
+    }
   
     newProductUpdate(product: Product) {
         this.productUpdate = true;
@@ -103,17 +112,15 @@ export class OwnProductcomponent implements OnInit {
         this.product = product;
       
     }
-
-    addProductUpdate(productupdate: ProductUpdate) {
-        console.log("log ");
-        productupdate.ProductId = this.product.Id;
-        var postOwner = this.ownerservice.setProductUpdate(productupdate)
-            .subscribe((productUpdates) => {
-                this.productUpdates = productUpdates
+    showUpdates(productId: number) {
+        this.updates = true;
+        var productUpdates = this.service.getProductUpdates(productId)
+            .subscribe((products) => {
+                this.productUpdates = products
+                
             }, err => {
                 this.errorMessage = err;
             });
-        console.log(productupdate);
-    }    
-    
+        
+    }
 }

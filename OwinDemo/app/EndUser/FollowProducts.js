@@ -10,32 +10,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_deprecated_1 = require("@angular/router-deprecated");
-var product_1 = require('../ProductOwner/product');
+var product_1 = require('../Model/product');
 //Import for design purpose
 var common_1 = require('@angular/common');
-var user_service_1 = require('./user.service');
+var productUpdate_1 = require('../Model/productUpdate');
+var app_service_1 = require('../app.service');
 var FollowProductcomponent = (function () {
     function FollowProductcomponent(userservice) {
         this.userservice = userservice;
-        this.unfollowed = [];
+        this.updates = false;
         this.followedProduct = new Array();
         this.followedProduct1 = new Array();
+        this.productsUpdate = new productUpdate_1.ProductUpdate();
+        this.productUpdates = new Array();
         this.product = new product_1.Product();
     }
     FollowProductcomponent.prototype.ngOnInit = function () {
         this.getFollowedProduct();
-        this.unfollowed[this.product.Id] = false;
     };
     FollowProductcomponent.prototype.unfollowProduct = function (product) {
         var _this = this;
         this.userservice.deleteFollower(product)
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () {
+            _this.getFollowedProduct();
+        });
+        console.log("unfollow...");
+    };
+    FollowProductcomponent.prototype.OnBack = function () {
+        this.updates = false;
+    };
+    FollowProductcomponent.prototype.showUpdates = function (productId, productName) {
+        var _this = this;
+        this.updates = true;
+        this.ProductName = productName;
+        var productUpdates = this.userservice.getProductUpdates(productId)
             .subscribe(function (products) {
-            _this.followedProduct1 = products;
+            _this.productUpdates = products;
         }, function (err) {
             _this.errorMessage = err;
         });
-        this.unfollowed[this.product.Id] = true;
-        console.log("unfollow...");
     };
     FollowProductcomponent.prototype.getFollowedProduct = function () {
         var _this = this;
@@ -51,10 +64,10 @@ var FollowProductcomponent = (function () {
         core_1.Component({
             selector: "products",
             templateUrl: "app/EndUser/followProducts.html",
-            providers: [user_service_1.UserService],
+            providers: [app_service_1.Service],
             directives: [router_deprecated_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [user_service_1.UserService])
+        __metadata('design:paramtypes', [app_service_1.Service])
     ], FollowProductcomponent);
     return FollowProductcomponent;
 }());

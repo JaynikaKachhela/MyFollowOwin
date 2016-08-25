@@ -35,7 +35,7 @@ var AdminService = (function () {
     };
     AdminService.prototype.deleteOwnerState = function (ownerId) {
         console.log("delete is invoked");
-        return this.http.delete(this.ownerUrl + "/" + ownerId).map(function (response) { return response.json(); });
+        return this.http.delete(this.ownerUrl + "/" + ownerId);
     };
     AdminService.prototype.extractData = function (res) {
         var body = res.json();
@@ -46,7 +46,7 @@ var AdminService = (function () {
             'Content-Type': 'application/json',
         });
         console.log("put is invoked");
-        return this.http.put(this.ownerUrl + '/' + owner.Id, JSON.stringify(owner_1.Owner), { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.put(this.ownerUrl + '/' + owner.Id, JSON.stringify(owner_1.Owners), { headers: headers });
     };
     AdminService.prototype.handleError = function (error) {
         // In a real world app, we might use a remote logging infrastructure

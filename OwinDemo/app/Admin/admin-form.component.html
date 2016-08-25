@@ -17,25 +17,10 @@
         <td>{{owner.ProductOwner.FoundedYear}}</td>
         <td>{{owner.ProductOwner.WebsiteUrl}}</td>
         <td>
-            <div [hidden]="approved[owner.Id]" *ngIf="!rejected[owner.Id]">
                 <button class='btn-primary' (click)="Approve(owner.Id)">Approve</button>
                 <button class='btn-primary' (click)="Reject(owner.Id)">Reject</button>
-            </div>
+
         </td>
-
-
-        <!--<td [hidden]="approved" [hidden]="rejected" ><button (click)="Approve(owner.Id)">Approve</button>
-            <button (click)="Reject(owner.Id)">Reject</button></td>
-        <td [hidden]="!approved" [hidden]="rejected">Approved</td>
-        <td [hidden]="approved" [hidden]="!rejected">Rejected</td>-->
     </tr>
 
 </table>
-    <div *ngFor="let owner of owners">
-        <div *ngIf="approved[owner.Id]" class="alert alert-success box-msg" role="alert">
-            <strong>Approved...</strong> {{owner.UserName}}'s request is approved.
-        </div>
-        <div *ngIf="rejected[owner.Id]" class="alert alert-info">
-            <strong>Rejected...</strong> {{owner.UserName}}'s request is rejected.
-        </div>
-    </div>

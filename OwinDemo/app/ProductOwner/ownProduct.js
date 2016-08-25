@@ -12,17 +12,15 @@ var core_1 = require("@angular/core");
 var router_deprecated_1 = require("@angular/router-deprecated");
 //Import for design purpose
 var common_1 = require('@angular/common');
-var product_1 = require('./product');
-var productUpdate_1 = require('./productUpdate');
-var product_owner_service_1 = require('./product_owner.service');
-var user_service_1 = require('../EndUser/user.service');
+var product_1 = require('../Model/product');
+var productUpdate_1 = require('../Model/productUpdate');
+var app_service_1 = require('../app.service');
 var OwnProductcomponent = (function () {
-    function OwnProductcomponent(ownerservice, userservice) {
-        this.ownerservice = ownerservice;
-        this.userservice = userservice;
+    function OwnProductcomponent(service) {
+        this.service = service;
         this.productUpdate = false;
         this.detailProduct = false;
-        this.deleted = false;
+        this.updates = false;
         this.editProduct = false;
         this.unfollowed = [];
         this.products = new Array();
@@ -34,10 +32,11 @@ var OwnProductcomponent = (function () {
         this.getProducts();
         this.detailProduct = false;
         this.productUpdate = false;
+        this.updates = false;
     };
     OwnProductcomponent.prototype.getProducts = function () {
         var _this = this;
-        var displayOwner = this.ownerservice.getProduct()
+        var displayOwner = this.service.getProducts()
             .subscribe(function (products) {
             _this.products = products;
             //console.log(this.products);
@@ -46,10 +45,10 @@ var OwnProductcomponent = (function () {
         });
     };
     OwnProductcomponent.prototype.onBack = function () {
-        this.deleted = false;
         this.detailProduct = false;
         this.editProduct = false;
         this.productUpdate = false;
+        this.updates = false;
     };
     OwnProductcomponent.prototype.updateData = function (product) {
         this.editProduct = true;
@@ -57,14 +56,11 @@ var OwnProductcomponent = (function () {
     };
     OwnProductcomponent.prototype.onEdit = function (product) {
         var _this = this;
-        this.ownerservice.editProduct(product)
-            .subscribe(function (products) {
-            _this.products = products;
-        }, function (err) {
-            _this.errorMessage = err;
+        this.service.editProduct(product)
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () {
+            _this.getProducts();
         });
         this.editProduct = false;
-        this.getProducts();
         console.log("Edited...");
     };
     OwnProductcomponent.prototype.detailedProduct = function (product) {
@@ -73,41 +69,45 @@ var OwnProductcomponent = (function () {
     };
     OwnProductcomponent.prototype.onDelete = function (product) {
         var _this = this;
-        this.ownerservice.deleteProduct(product)
-            .subscribe(function (products) {
-            _this.products = products;
-        }, function (err) {
-            _this.errorMessage = err;
+        this.service.deleteProduct(product)
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () {
+            _this.getProducts();
         });
-        this.getProducts();
-        this.deleted = true;
         console.log("Deleted...");
+    };
+    OwnProductcomponent.prototype.newUpdate = function (productsUpdate) {
+        var _this = this;
+        console.log(productsUpdate);
+        this.productsUpdate.ProductId = this.product.Id;
+        var postOwner = this.service.setProductUpdate(this.productsUpdate)
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () {
+            _this.showUpdates(_this.product.Id);
+        });
+        console.log("Added");
     };
     OwnProductcomponent.prototype.newProductUpdate = function (product) {
         this.productUpdate = true;
         this.detailProduct = false;
         this.product = product;
     };
-    OwnProductcomponent.prototype.addProductUpdate = function (productupdate) {
+    OwnProductcomponent.prototype.showUpdates = function (productId) {
         var _this = this;
-        console.log("log ");
-        productupdate.ProductId = this.product.Id;
-        var postOwner = this.ownerservice.setProductUpdate(productupdate)
-            .subscribe(function (productUpdates) {
-            _this.productUpdates = productUpdates;
+        this.updates = true;
+        var productUpdates = this.service.getProductUpdates(productId)
+            .subscribe(function (products) {
+            _this.productUpdates = products;
         }, function (err) {
             _this.errorMessage = err;
         });
-        console.log(productupdate);
     };
     OwnProductcomponent = __decorate([
         core_1.Component({
             selector: "ownProducts",
             templateUrl: "app/ProductOwner/ownProduct.html",
-            providers: [],
+            providers: [app_service_1.Service],
             directives: [router_deprecated_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [product_owner_service_1.ProductOwnerService, user_service_1.UserService])
+        __metadata('design:paramtypes', [app_service_1.Service])
     ], OwnProductcomponent);
     return OwnProductcomponent;
 }());

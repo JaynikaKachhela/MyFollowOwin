@@ -10,8 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_deprecated_1 = require("@angular/router-deprecated");
-var product_1 = require('./product');
-var product_owner_service_1 = require('./product_owner.service');
+var product_1 = require('../Model/product');
+var app_service_1 = require('../app.service');
 //Import for design purpose
 var common_1 = require('@angular/common');
 var NewProductcomponent = (function () {
@@ -37,10 +37,8 @@ var NewProductcomponent = (function () {
         var _this = this;
         console.log(product);
         var postOwner = this.ownerservice.setProduct(this.product)
-            .subscribe(function (products) {
-            _this.products = products;
-        }, function (err) {
-            _this.errorMessage = err;
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () {
+            _this.newProduct = true;
         });
         this.newProduct = true;
         console.log("Insered !!!");
@@ -49,10 +47,10 @@ var NewProductcomponent = (function () {
         core_1.Component({
             selector: "newProduct",
             templateUrl: "app/ProductOwner/newProduct.html",
-            providers: [product_owner_service_1.ProductOwnerService],
+            providers: [app_service_1.Service],
             directives: [router_deprecated_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [product_owner_service_1.ProductOwnerService])
+        __metadata('design:paramtypes', [app_service_1.Service])
     ], NewProductcomponent);
     return NewProductcomponent;
 }());

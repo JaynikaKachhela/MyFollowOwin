@@ -1,4 +1,4 @@
-﻿<div class='table-responsive'>
+﻿<div class='table-responsive' *ngIf="!updates">
     <br /><h2 color="blue">FollowingProducts</h2>
     <table class='table'>
         <tr>
@@ -34,7 +34,30 @@
             </td>
             <td>
                 <button class='btn-primary' (click)="unfollowProduct(product)">UnFollow</button>
-                <!--<h6 [hidden]="!unfollowed[owner.Id]">Unfollowed</h6>-->
+                <button class='btn-primary' (click)="showUpdates(product.Id,product.Name)">ProductUpdates</button>
+            </td>
+        </tr>
+    </table>
+</div>
+<div *ngIf="updates">
+    <h2>{{ProductName}}'s Updates</h2><br/>
+    <button class='btn-primary' (click)="OnBack()">FollowingProductList</button>
+    <table class="table table-striped">
+        <tr>
+            <th>Intrduction</th>
+            <th>Detail</th>
+            <th>Media</th>
+
+        </tr>
+        <tr *ngFor="let productUpdate of productUpdates">
+            <td>
+                {{productUpdate.Introduction}}
+            </td>
+            <td>
+                {{productUpdate.Detail}}
+            </td>
+            <td>
+                {{Media}}
             </td>
         </tr>
     </table>

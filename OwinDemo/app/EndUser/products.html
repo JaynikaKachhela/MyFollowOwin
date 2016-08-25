@@ -35,13 +35,7 @@
             </td>
             <td>
                 <button class='btn-primary' (click)="followProduct(product)">Follow</button>
-                <!--<h6 [hidden]="!followed[owner.Id]">following</h6>-->
             </td>
         </tr>
     </table>
-</div>
-<div *ngFor="let product of products">
-    <div *ngIf="approved[product.Id]" class="alert alert-success box-msg" role="alert">
-        <strong>Following  </strong> {{product.Name}}
-    </div>
 </div>

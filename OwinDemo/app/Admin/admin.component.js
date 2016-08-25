@@ -9,17 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var owner_1 = require('./owner');
-var admin_service_1 = require('./admin.service');
+var productOwner_1 = require('../Model/productOwner');
+var app_service_1 = require('../app.service');
 var AdminComponent = (function () {
     function AdminComponent(adminservice) {
         this.adminservice = adminservice;
         this.Click = false;
-        this.approved = [];
-        this.rejected = [];
         this.owners = new Array();
         this.owners1 = new Array();
-        this.owner = new owner_1.Owner();
+        this.owner = new productOwner_1.Owners();
     }
     AdminComponent.prototype.ngOnInit = function () {
         this.getOwners();
@@ -37,40 +35,34 @@ var AdminComponent = (function () {
     AdminComponent.prototype.UpdateOwnerData = function () {
         var _this = this;
         this.adminservice.UpdateOwnerState(this.owner)
-            .subscribe(function (owners) {
-            _this.owners = owners;
-        }, function (err) {
-            _this.errorMessage = err;
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () {
+            _this.getOwners();
         });
     };
     AdminComponent.prototype.deleteOwnerData = function (ownerId) {
         var _this = this;
         this.adminservice.deleteOwnerState(this.owner.Id)
-            .subscribe(function (owners) {
-            _this.owners1 = owners;
-        }, function (err) {
-            _this.errorMessage = err;
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () {
+            _this.getOwners();
         });
     };
     AdminComponent.prototype.Reject = function (ownerId) {
         this.Click = true;
         this.owner.Id = ownerId;
         this.deleteOwnerData(this.owner.Id);
-        this.rejected[this.owner.Id] = true;
     };
     AdminComponent.prototype.Approve = function (ownerId) {
         this.Click = true;
         this.owner.Id = ownerId;
         this.UpdateOwnerData();
-        this.approved[this.owner.Id] = true;
     };
     AdminComponent = __decorate([
         core_1.Component({
             selector: 'my-admin',
             templateUrl: 'app/Admin/admin-form.component.html',
-            providers: [admin_service_1.AdminService]
+            providers: [app_service_1.Service]
         }), 
-        __metadata('design:paramtypes', [admin_service_1.AdminService])
+        __metadata('design:paramtypes', [app_service_1.Service])
     ], AdminComponent);
     return AdminComponent;
 }());

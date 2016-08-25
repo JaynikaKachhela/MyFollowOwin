@@ -1,8 +1,6 @@
 ﻿import { provideRouter, RouterConfig }  from '@angular/router';
 import { Productcomponent } from './EndUser/Product';
 import {FollowProductcomponent}from './EndUser/FollowProducts'
-import {FollowedProductcomponent}from './ProductOwner/FollowProducts'
-
 import {ToBeProductOwnercomponent}from './EndUser/tobeProductOwner'
 import {OwnProductcomponent}from './ProductOwner/ownProduct'
 import {NewProductcomponent}from './ProductOwner/newProduct'
@@ -17,7 +15,7 @@ const routes: RouterConfig = [
     },
     {
         path: 'followProducts',
-        component: FollowedProductcomponent
+        component: FollowProductcomponent
     },
     {
         path: 'followedProducts',

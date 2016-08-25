@@ -159,6 +159,10 @@ namespace OwinDemo.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model,string returnUrl)
         {
+            if(User.Identity!=null)
+            {
+                AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            }
             if(ModelState.IsValid)
             {
                 var user1 = await UserManager.FindByEmailAsync(model.Email);

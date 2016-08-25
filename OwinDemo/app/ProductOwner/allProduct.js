@@ -10,23 +10,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_deprecated_1 = require("@angular/router-deprecated");
-var product_owner_service_1 = require('./product_owner.service');
-var user_service_1 = require('../EndUser/user.service');
+var app_service_1 = require('../app.service');
 //Import for design purpose
 var common_1 = require('@angular/common');
 var AllProductcomponent = (function () {
-    function AllProductcomponent(ownerservice, userservice) {
-        this.ownerservice = ownerservice;
-        this.userservice = userservice;
-        this.followed = false;
+    function AllProductcomponent(service) {
+        this.service = service;
         this.getAllProducts();
     }
-    AllProductcomponent.prototype.onBack = function () {
-        this.followed = false;
-    };
     AllProductcomponent.prototype.getAllProducts = function () {
         var _this = this;
-        var displayOwner = this.ownerservice.getAllProduct()
+        var displayOwner = this.service.getAllProduct()
             .subscribe(function (products) {
             _this.allProducts = products;
             console.log(_this.allProducts);
@@ -36,23 +30,20 @@ var AllProductcomponent = (function () {
     };
     AllProductcomponent.prototype.followProduct = function (product) {
         var _this = this;
-        this.userservice.newFollow(product)
-            .subscribe(function (products) {
-            _this.allProducts = products;
-        }, function (err) {
-            _this.errorMessage = err;
+        this.service.newFollow(product)
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () {
+            _this.getAllProducts();
         });
-        this.followed = true;
         console.log("Added...");
     };
     AllProductcomponent = __decorate([
         core_1.Component({
             selector: "allProduct",
             templateUrl: "app/ProductOwner/allProduct.html",
-            providers: [product_owner_service_1.ProductOwnerService],
+            providers: [app_service_1.Service],
             directives: [router_deprecated_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [product_owner_service_1.ProductOwnerService, user_service_1.UserService])
+        __metadata('design:paramtypes', [app_service_1.Service])
     ], AllProductcomponent);
     return AllProductcomponent;
 }());

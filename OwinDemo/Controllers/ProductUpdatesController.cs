@@ -21,10 +21,10 @@ namespace OwinDemo.Controllers
         [ResponseType(typeof(ProductUpdate))]
         public IHttpActionResult PostProductUpdate(ProductUpdate productUpdate)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
             DateTime Now = DateTime.Now;
             productUpdate.CreatedDate = Now;
             productUpdate.LastModifiedDate = Now;
@@ -40,18 +40,21 @@ namespace OwinDemo.Controllers
         //    return db.ProductUpdates;
         //}
 
-        //// GET: api/ProductUpdates/5
-        //[ResponseType(typeof(ProductUpdate))]
-        //public IHttpActionResult GetProductUpdate(int id)
-        //{
-        //    ProductUpdate productUpdate = db.ProductUpdates.Find(id);
-        //    if (productUpdate == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: api/ProductUpdates/5
+        [ResponseType(typeof(ProductUpdate))]
+        [HttpGet]
+        public IQueryable GetProductUpdate(int id)
+        {
+            Product product = db.Products.Find(id);
 
-        //    return Ok(productUpdate);
-        //}
+            List<ProductUpdate> productUpdates = db.ProductUpdates.ToList();
+           foreach(var productUpdate in productUpdates.ToList())
+            {
+                if (!(productUpdate.ProductId == product.Id))
+                    productUpdates.Remove(productUpdate);
+            }
+            return productUpdates.AsQueryable();
+        }
 
         //// PUT: api/ProductUpdates/5
         //[ResponseType(typeof(void))]

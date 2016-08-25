@@ -10,8 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_deprecated_1 = require("@angular/router-deprecated");
-var owner_1 = require('./owner');
-var user_service_1 = require('./user.service');
+var owner_1 = require('../Model/owner');
+var app_service_1 = require('../app.service');
 //Import for design purpose
 var common_1 = require('@angular/common');
 var ToBeProductOwnercomponent = (function () {
@@ -20,30 +20,25 @@ var ToBeProductOwnercomponent = (function () {
         this.fillForm = false;
         this.owners = new Array();
         this.owner = new owner_1.Owner();
-    }
-    ToBeProductOwnercomponent.prototype.OnLoad = function () {
         this.fillForm = false;
-    };
+    }
     ToBeProductOwnercomponent.prototype.onSubmit = function (owner) {
         var _this = this;
         console.log(owner);
         var postOwner = this.userservice.setOwner(owner)
-            .subscribe(function (owners) {
-            _this.owners = owners;
-        }, function (err) {
-            _this.errorMessage = err;
+            .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () {
+            _this.fillForm = true;
         });
-        this.fillForm = true;
         console.log("Added...");
     };
     ToBeProductOwnercomponent = __decorate([
         core_1.Component({
             selector: "tobeProductOwner",
             templateUrl: "app/EndUser/tobeProductOwner.html",
-            providers: [user_service_1.UserService],
+            providers: [app_service_1.Service],
             directives: [router_deprecated_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [user_service_1.UserService])
+        __metadata('design:paramtypes', [app_service_1.Service])
     ], ToBeProductOwnercomponent);
     return ToBeProductOwnercomponent;
 }());

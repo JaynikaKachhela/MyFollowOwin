@@ -1,14 +1,14 @@
 "use strict";
-var Owner = (function () {
-    function Owner() {
+var Owners = (function () {
+    function Owners() {
     }
-    return Owner;
+    return Owners;
 }());
-exports.Owner = Owner;
+exports.Owners = Owners;
 var ProductOwner = (function () {
     function ProductOwner() {
     }
     return ProductOwner;
 }());
 exports.ProductOwner = ProductOwner;
-//# sourceMappingURL=Owner.js.map
+//# sourceMappingURL=owner.js.map
