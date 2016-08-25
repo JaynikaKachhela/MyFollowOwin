@@ -1,0 +1,15 @@
+﻿<h3>details</h3>
+<div>
+    <h5>ProductName:{{product.Name}}</h5>
+    <h5>Description:{{product.Description}}</h5>
+    <h5>
+        Type:
+        <h6 *ngIf="product.Type===1">Mobile</h6>
+        <h6 *ngIf="product.Type===2">web</h6>
+        <h6 *ngIf="product.Type===3">IoT</h6>
+    </h5>
+    <h5>HomepageUrl:{{product.HomepageUrl}}</h5>
+    <h5>PlaystoreUrl:{{product.PlaystoreUrl}}</h5>
+    <h5>AppstoreUrl:{{product.AppstoreUrl}}</h5>
+    <button class='btn-primary' [routerLink]="['/productUpdate', {id: product.Id}]">NewProductUpdate</button>
+</div>

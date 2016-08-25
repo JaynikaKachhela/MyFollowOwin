@@ -1,0 +1,44 @@
+﻿<div class='table-responsive' *ngIf="!followed">
+    <br /><h2 color="blue">AllProducts</h2>
+
+    <table class='table'>
+        <tr>
+            <th>ProductName</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>HomepageUrl</th>
+            <th>PlaystoreUrl</th>
+            <th>AppstoreUrl</th>
+            <th>Action</th>
+        </tr>
+        <tr *ngFor="let product of allProducts">
+            <td>
+                {{product.Name}}
+            </td>
+            <td>
+                {{product.Description}}
+            </td>
+            <td>
+                <h6 *ngIf="product.Type===1">Mobile</h6>
+                <h6 *ngIf="product.Type===2">web</h6>
+                <h6 *ngIf="product.Type===3">IoT</h6>
+
+            </td>
+            <td>
+                {{product.HomepageUrl}}
+            </td>
+            <td>
+                {{product.PlaystoreUrl}}
+            </td>
+            <td>
+                {{product.AppstoreUrl}}
+            </td>
+            <td>
+                <button class='btn-primary' (click)="followProduct(product)">Follow</button>
+            </td>
+        </tr>
+    </table>
+</div>
+<div *ngIf="followed" class="alert alert-success box-msg">
+    <strong>following new product...</strong><button (click)="onBack()">Back</button>
+</div>

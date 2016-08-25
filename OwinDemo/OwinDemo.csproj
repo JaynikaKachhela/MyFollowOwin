@@ -262,7 +262,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\Admin\admin-form.component.html" />
+    <Content Include="app\EndUser\followProducts.html" />
+    <Content Include="app\EndUser\products.html" />
+    <Content Include="app\EndUser\tobeProductOwner.html" />
     <Content Include="app\EndUser\user.component.html" />
+    <Content Include="app\ProductOwner\allProduct.html" />
+    <Content Include="app\ProductOwner\followedProduct.html" />
+    <Content Include="app\ProductOwner\newProduct.html" />
+    <Content Include="app\ProductOwner\ownProduct.html" />
     <Content Include="app\ProductOwner\product_owner.component.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
@@ -360,10 +367,18 @@
     <TypeScriptCompile Include="app\Admin\admin.component.ts" />
     <TypeScriptCompile Include="app\Admin\admin.service.ts" />
     <TypeScriptCompile Include="app\Admin\owner.ts" />
+    <TypeScriptCompile Include="app\app.routes.ts" />
+    <TypeScriptCompile Include="app\EndUser\FollowProducts.ts" />
     <TypeScriptCompile Include="app\EndUser\owner.ts" />
+    <TypeScriptCompile Include="app\EndUser\Product.ts" />
+    <TypeScriptCompile Include="app\EndUser\tobeProductOwner.ts" />
     <TypeScriptCompile Include="app\EndUser\user.component.ts" />
     <TypeScriptCompile Include="app\EndUser\user.service.ts" />
     <TypeScriptCompile Include="app\main.ts" />
+    <TypeScriptCompile Include="app\ProductOwner\allProduct.ts" />
+    <TypeScriptCompile Include="app\ProductOwner\FollowProducts.ts" />
+    <TypeScriptCompile Include="app\ProductOwner\newProduct.ts" />
+    <TypeScriptCompile Include="app\ProductOwner\ownProduct.ts" />
     <TypeScriptCompile Include="app\ProductOwner\product.ts" />
     <TypeScriptCompile Include="app\ProductOwner\productUpdate.ts" />
     <TypeScriptCompile Include="app\ProductOwner\product_owner.component.ts" />

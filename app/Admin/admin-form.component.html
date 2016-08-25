@@ -1,0 +1,19 @@
+﻿<h2>Admin</h2>
+<table class='table'>
+    <tr>
+        <th>UserName</th>
+        <th>CompanyName</th>
+        <th>Description</th>
+        <th>FoundedYear</th>
+        <th>WebsiteUrl</th>
+        <th>  Action  </th>
+    </tr>
+    <tr *ngFor="let owner of owners">
+        <td>{{owner.UserName}}</td>
+        <td>{{owner.ProductOwner.CompanyName}}</td>
+        <td>{{owner.ProductOwner.Description}}</td>
+        <td>{{owner.ProductOwner.FoundedYear}}</td>
+        <td>{{owner.ProductOwner.WebsiteUrl}}</td>
+        <td><button (click)="Approve(owner.Id)">Approve</button><button>Reject</button></td>
+    </tr>
+</table>

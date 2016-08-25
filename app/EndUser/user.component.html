@@ -1,0 +1,103 @@
+﻿<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showForm()' *ngIf="!beOwner">ToBeProductOwner</button>
+<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showForm()' *ngIf="beOwner">HideForm</button>
+<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showProduct()' *ngIf="!isProducts">Products</button>
+<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showProduct()' *ngIf="isProducts">HideProducts</button>
+<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showFollowProduct()' *ngIf="!isFolllowProducts">FollowingProducts</button>
+<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showFollowProduct()' *ngIf="isFolllowProducts">HideFollowingProducts</button>
+
+
+<form *ngIf="beOwner" #ownerForm="ngForm">
+    <br /><h2 color="blue">Fill detail to become product owner.</h2>
+
+    Company Name<br />
+    <input type="text" #CompanyName="ngForm" ngControl="CompanyName" [(ngModel)]="owner.CompanyName" required /><br />
+    Description:<br />
+    <input type="text" #Description="ngForm" ngControl="Description" [(ngModel)]="owner.Description" required /><br />
+    FoundedYear:<br />
+    <input type="number" #FoundedYear="ngForm" ngControl="FoundedYear" [(ngModel)]="owner.FoundedYear" required /><br />
+    WebsiteUrl:<br />
+    <input type="text" #WebsiteUrl="ngForm" ngControl="WebsiteUrl" [(ngModel)]="owner.WebsiteUrl" required /><br />
+    <button type="button" class="btn btn-default" (click)="onSubmit(owner)">Submit</button>
+</form>
+
+<div class='table-responsive' *ngIf="isFolllowProducts">
+    <br/><h2 color="blue">FollowingProducts</h2>
+    <table class='table'>
+        <tr>
+            <th>ProductName</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>HomepageUrl</th>
+            <th>PlaystoreUrl</th>
+            <th>AppstoreUrl</th>
+            <th>Action</th>
+        </tr>
+        <tr *ngFor="let product of followedProduct">
+            <td>
+                {{product.Name}}
+            </td>
+            <td>
+                {{product.Description}}
+            </td>
+            <td>
+                <h6 *ngIf="product.Type===1">Mobile</h6>
+                <h6 *ngIf="product.Type===2">web</h6>
+                <h6 *ngIf="product.Type===3">IoT</h6>
+
+            </td>
+            <td>
+                {{product.HomepageUrl}}
+            </td>
+            <td>
+                {{product.PlaystoreUrl}}
+            </td>
+            <td>
+                {{product.AppstoreUrl}}
+            </td>
+            <td>
+                <button class='btn-primary' (click)="unfollowProduct(product)">UnFollow</button>
+            </td>
+        </tr>
+    </table>
+    </div>
+<div class='table-responsive' *ngIf="isProducts">
+        <br /><h2 color="blue">Products</h2>
+
+        <table class='table'>
+            <tr>
+                <th>ProductName</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>HomepageUrl</th>
+                <th>PlaystoreUrl</th>
+                <th>AppstoreUrl</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let product of products">
+                <td>
+                    {{product.Name}}
+                </td>
+                <td>
+                    {{product.Description}}
+                </td>
+                <td>
+                    <h6 *ngIf="product.Type===1">Mobile</h6>
+                    <h6 *ngIf="product.Type===2">web</h6>
+                    <h6 *ngIf="product.Type===3">IoT</h6>
+
+                </td>
+                <td>
+                    {{product.HomepageUrl}}
+                </td>
+                <td>
+                    {{product.PlaystoreUrl}}
+                </td>
+                <td>
+                    {{product.AppstoreUrl}}
+                </td>
+                <td>
+                    <button class='btn-primary' [hidden]="hideElement" (click)="followProduct(product)">Follow</button>
+                </td>
+            </tr>
+        </table>
+    </div>

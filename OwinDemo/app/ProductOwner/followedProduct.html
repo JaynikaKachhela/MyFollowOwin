@@ -1,0 +1,42 @@
+﻿<div *ngIf="!unfollowed" class='table-responsive'>
+    <br /><h2 color="blue">FollowingProducts</h2>
+    <table class='table'>
+        <tr>
+            <th>ProductName</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>HomepageUrl</th>
+            <th>PlaystoreUrl</th>
+            <th>AppstoreUrl</th>
+            <th>Action</th>
+        </tr>
+        <tr *ngFor="let product of followedProduct">
+            <td>
+                {{product.Name}}
+            </td>
+            <td>
+                {{product.Description}}
+            </td>
+            <td>
+                <h6 *ngIf="product.Type===1">Mobile</h6>
+                <h6 *ngIf="product.Type===2">web</h6>
+                <h6 *ngIf="product.Type===3">IoT</h6>
+
+            </td>
+            <td>
+                {{product.HomepageUrl}}
+            </td>
+            <td>
+                {{product.PlaystoreUrl}}
+            </td>
+            <td>
+                {{product.AppstoreUrl}}
+            </td>
+            <td>
+                <button class='btn-primary' (click)="unfollowProduct(product)">UnFollow</button>
+        </tr>
+    </table>
+</div>
+<div *ngIf="unfollowed" class="alert alert-success box-msg">
+    <strong>unfollowed one product...</strong><button (click)="onBack()">Back</button>
+</div>

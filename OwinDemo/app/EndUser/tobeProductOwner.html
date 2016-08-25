@@ -1,0 +1,19 @@
+﻿<form #ownerForm="ngForm" [hidden]="fillForm" onload="OnLoad()">
+
+    <br /><h2 color="blue">Fill detail to become product owner.</h2>
+
+    Company Name<br />
+    <input type="text" #CompanyName="ngForm" ngControl="CompanyName" [(ngModel)]="owner.CompanyName" required /><br />
+    Description:<br />
+    <input type="text" #Description="ngForm" ngControl="Description" [(ngModel)]="owner.Description" required /><br />
+    FoundedYear:<br />
+    <input type="number" #FoundedYear="ngForm" ngControl="FoundedYear" [(ngModel)]="owner.FoundedYear" required /><br />
+    WebsiteUrl:<br />
+    <input type="text" #WebsiteUrl="ngForm" ngControl="WebsiteUrl" [(ngModel)]="owner.WebsiteUrl" required /><br />
+    <button type="button" class="btn btn-default" (click)="onSubmit(owner)">Submit</button>
+
+</form>
+
+<!--<div [hidden]="!fillForm" class="alert alert-success">
+    <strong>Success!</strong> your request is being send for approval.
+</div>-->

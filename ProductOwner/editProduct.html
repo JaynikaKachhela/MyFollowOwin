@@ -1,0 +1,24 @@
+﻿<h3>edit</h3>
+
+<div>
+    <form #addProduct="ngForm" class="form-horizontal">
+        <b>ProductName:</b><br />
+        <input type="text" #ProductName="ngForm" ngControl="Name" [(ngModel)]="product.Name" required /><br />
+        <b>Description:</b><br />
+        <input type="text" #Description="ngForm" ngControl="Description" [(ngModel)]="product.Description" required /><br />
+        <b>Type:</b><br />
+        <select #Type="ngForm" [(ngModel)]="product.Type" ngControl="Type">
+            <option value="Mobile">Mobile</option>
+            <option value="Web">Web</option>
+            <option value="IOT">IOT</option>
+        </select><br />
+        <b>HomepageUrl:</b><br />
+        <input type="text" #HomepageUrl="ngForm" ngControl="HomepageUrl" [(ngModel)]="product.HomepageUrl" required /><br />
+        <b>PlaystoreUrl:</b><br />
+        <input type="text" #PlaystoreURL="ngForm" ngControl="PlaystoreUrl" [(ngModel)]="product.PlaystoreUrl" required /><br />
+        <b>AppstoreUrl:</b><br />
+        <input type="text" #AppstoreUrl="ngForm" ngControl="AppstoreUrl" [(ngModel)]="product.AppstoreUrl" required /><br /><br />
+        <button class='btn-primary' (click)="onEdit(product)">Save</button>
+        <button class='btn-primary' (click)="onNotEdit()">Back</button>
+    </form>
+</div>

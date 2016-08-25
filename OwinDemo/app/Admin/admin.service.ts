@@ -28,6 +28,11 @@ export class AdminService {
         return this.http.get(this.ownerUrl)
             .map(response => response.json());
     }
+    deleteOwnerState(ownerId: string) {
+        console.log("delete is invoked");
+
+        return this.http.delete(this.ownerUrl + "/" + ownerId).map(response => response.json());
+    }
     private extractData(res: Response) {
         let body = res.json();
         return body.data || {};

@@ -1,0 +1,108 @@
+﻿<div *ngIf="!editProduct">
+    <div *ngIf="!deleted">
+        <div *ngIf="!productUpdate">
+            <div *ngIf="!detailProduct">
+
+                <br /><h2 color="blue">Own Products</h2>
+                <table class="table table-striped">
+                    <tr>
+                        <th>ProductName</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th>HomepageUrl</th>
+                        <th>PlaystoreUrl</th>
+                        <th>AppstoreUrl</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr *ngFor="let product of products">
+                        <td>
+                            {{product.Name}}
+                        </td>
+                        <td>
+                            {{product.Description}}
+                        </td>
+                        <td>
+                            <h6 *ngIf="product.Type===1">Mobile</h6>
+                            <h6 *ngIf="product.Type===2">web</h6>
+                            <h6 *ngIf="product.Type===3">IoT</h6>
+
+                        </td>
+                        <td>
+                            {{product.HomepageUrl}}
+                        </td>
+                        <td>
+                            {{product.PlaystoreUrl}}
+                        </td>
+                        <td>
+                            {{product.AppstoreUrl}}
+                        </td>
+                        <td>
+                            <div >
+                                <button class='btn-primary' (click)="updateData(product)">Edit</button><button class='btn-primary' (click)="detailedProduct(product)">Detail</button><button class='btn-primary' (click)="onDelete(product)">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            </div>
+        </div>
+</div>
+
+<div *ngIf="editProduct">
+    <form #addProduct="ngForm" class="form-horizontal">
+        <b>ProductName:</b><br />
+        <input type="text" #ProductName="ngForm" ngControl="Name" [(ngModel)]="product.Name" required /><br />
+        <b>Description:</b><br />
+        <input type="text" #Description="ngForm" ngControl="Description" [(ngModel)]="product.Description" required /><br />
+        <b>Type:</b><br />
+        <select #Type="ngForm" [(ngModel)]="product.Type" ngControl="Type">
+            <option value="Mobile">Mobile</option>
+            <option value="Web">Web</option>
+            <option value="IOT">IOT</option>
+        </select><br />
+        <b>HomepageUrl:</b><br />
+        <input type="text" #HomepageUrl="ngForm" ngControl="HomepageUrl" [(ngModel)]="product.HomepageUrl" required /><br />
+        <b>PlaystoreUrl:</b><br />
+        <input type="text" #PlaystoreURL="ngForm" ngControl="PlaystoreUrl" [(ngModel)]="product.PlaystoreUrl" required /><br />
+        <b>AppstoreUrl:</b><br />
+        <input type="text" #AppstoreUrl="ngForm" ngControl="AppstoreUrl" [(ngModel)]="product.AppstoreUrl" required /><br /><br />
+        <button class='btn-primary' (click)="onEdit(product)">Save</button>
+        <button class='btn-primary' (click)="onBack()">Back</button>
+    </form>
+</div>
+<div *ngIf="deleted">
+    <strong>deleted...</strong> {{product.Name}}<button (click)="onBack()">Back</button>
+</div>
+    
+<div *ngIf="detailProduct">
+        <h5>ProductName:{{product.Name}}</h5>
+        <h5>Description:{{product.Description}}</h5>
+        <h5>Type:
+           <h6 *ngIf="product.Type===1">Mobile</h6>
+           <h6 *ngIf="product.Type===2">web</h6>
+           <h6 *ngIf="product.Type===3">IoT</h6>
+        </h5>
+        <h5>HomepageUrl:{{product.HomepageUrl}}</h5>
+        <h5>PlaystoreUrl:{{product.PlaystoreUrl}}</h5>
+        <h5>AppstoreUrl:{{product.AppstoreUrl}}</h5>
+
+
+        <button class='btn-primary' (click)="newProductUpdate(product)">NewProductUpdate</button>
+        <button class='btn-primary' (click)="onBack()">Back</button>
+</div>
+
+
+   <div *ngIf="productUpdate">
+        <form #addProductUpdate="ngForm" class="form-horizontal">
+            <b>ProductName:</b><br />
+            <input type="text" #ProductName="ngForm" ngControl="Name" [(ngModel)]="product.Name" required /><br />
+            <b>Introduction:</b><br />
+            <input type="text" #Introduction="ngForm" ngControl="Introduction" [(ngModel)]="productsUpdate.Introduction" required /><br />
+            <b>Detail:</b><br />
+            <input type="text" #Detail="ngForm" ngControl="Detail" [(ngModel)]="productsUpdate.Detail" required /><br />
+            <b>Media:</b><br />
+            <input class="btn-file" type="file" #Media="ngForm" [(ngModel)]="productsUpdate.Media" ngControl="Media" id="Media" /><br />
+            <button class='btn-primary' (click)="addProductUpdate(productsUpdate)">NewProductUpdate</button>
+            <button class='btn-primary' (click)="onBack()">Product List</button>
+         </form>
+    </div>

@@ -1,0 +1,14 @@
+﻿<h3>new ProductUpdate</h3>
+<div>
+    <form #addProductUpdate="ngForm" class="form-horizontal">
+        <b>ProductName:</b><br />
+        <input type="text" #ProductName="ngForm" ngControl="Name" [(ngModel)]="product.Name" required /><br />
+        <b>Introduction:</b><br />
+        <input type="text" #Introduction="ngForm" ngControl="Introduction" [(ngModel)]="productsUpdate.Introduction" required /><br />
+        <b>Detail:</b><br />
+        <input type="text" #Detail="ngForm" ngControl="Detail" [(ngModel)]="productsUpdate.Detail" required /><br />
+        <b>Media:</b><br />
+        <input class="btn-file" type="file" #Media="ngForm" [(ngModel)]="productsUpdate.Media" ngControl="Media" id="Media" /><br />
+        <button class='btn-primary' (click)="addProductUpdate(productsUpdate)">NewProductUpdate</button>
+    </form>
+</div>

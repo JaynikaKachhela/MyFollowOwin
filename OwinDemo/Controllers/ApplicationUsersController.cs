@@ -145,22 +145,35 @@ namespace OwinDemo.Controllers
 
         //    return StatusCode(HttpStatusCode.NoContent);
         //}
-        //// DELETE: api/ApplicationUsers/5
-        //[ResponseType(typeof(ApplicationUser))]
-        //public IHttpActionResult DeleteApplicationUser(string id)
-        //{
-        //    ApplicationUser applicationUser = db.Users.Find(id);
-        //    if (applicationUser == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // DELETE: api/ApplicationUsers/5
+        [ResponseType(typeof(ApplicationUser))]
+        [HttpDelete]
+        public IHttpActionResult DeleteApplicationUser(string id)
+        {
+            ApplicationUser applicationUser = db.Users.Find(id);
+            applicationUser.ProductOwner = new ProductOwner();
+            db.Entry(applicationUser).State = EntityState.Modified;
+            //db.ApplicationUsers.Add(applicationUser);
 
-        //    db.Users.Remove(applicationUser);
-        //    db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                if (ApplicationUserExists(applicationUser.Id))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
-        //    return Ok(applicationUser);
-        //}
-
+            return CreatedAtRoute("DefaultApi", new { id = applicationUser.Id }, applicationUser);
+        }
+       
         protected override void Dispose(bool disposing)
         {
             if (disposing)

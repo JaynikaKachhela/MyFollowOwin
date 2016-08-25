@@ -15,7 +15,10 @@ var AdminComponent = (function () {
     function AdminComponent(adminservice) {
         this.adminservice = adminservice;
         this.Click = false;
+        this.approved = [];
+        this.rejected = [];
         this.owners = new Array();
+        this.owners1 = new Array();
         this.owner = new owner_1.Owner();
     }
     AdminComponent.prototype.ngOnInit = function () {
@@ -40,11 +43,26 @@ var AdminComponent = (function () {
             _this.errorMessage = err;
         });
     };
+    AdminComponent.prototype.deleteOwnerData = function (ownerId) {
+        var _this = this;
+        this.adminservice.deleteOwnerState(this.owner.Id)
+            .subscribe(function (owners) {
+            _this.owners1 = owners;
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+    };
+    AdminComponent.prototype.Reject = function (ownerId) {
+        this.Click = true;
+        this.owner.Id = ownerId;
+        this.deleteOwnerData(this.owner.Id);
+        this.rejected[this.owner.Id] = true;
+    };
     AdminComponent.prototype.Approve = function (ownerId) {
         this.Click = true;
         this.owner.Id = ownerId;
-        //this.owner.OwnerStates = 1;
         this.UpdateOwnerData();
+        this.approved[this.owner.Id] = true;
     };
     AdminComponent = __decorate([
         core_1.Component({

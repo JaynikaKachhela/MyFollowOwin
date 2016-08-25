@@ -1,5 +1,10 @@
 ﻿import { bootstrap }    from '@angular/platform-browser-dynamic';
-import { OwnerComponent } from './Owner/owner.component';
-import { appRouterProviders } from './route';
+import { ProductOwnerComponent } from './ProductOwner/product_owner.component';
+import { UserComponent } from './EndUser/user.component';
+import { AdminComponent } from './Admin/admin.component';
 import { HTTP_PROVIDERS } from '@angular/http';
-bootstrap(OwnerComponent, [ HTTP_PROVIDERS]);
+
+
+bootstrap(UserComponent, [HTTP_PROVIDERS]);
+bootstrap(AdminComponent, [HTTP_PROVIDERS]);
+bootstrap(ProductOwnerComponent, [HTTP_PROVIDERS]);

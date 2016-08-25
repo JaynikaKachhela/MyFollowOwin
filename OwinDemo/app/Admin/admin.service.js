@@ -33,6 +33,10 @@ var AdminService = (function () {
         return this.http.get(this.ownerUrl)
             .map(function (response) { return response.json(); });
     };
+    AdminService.prototype.deleteOwnerState = function (ownerId) {
+        console.log("delete is invoked");
+        return this.http.delete(this.ownerUrl + "/" + ownerId).map(function (response) { return response.json(); });
+    };
     AdminService.prototype.extractData = function (res) {
         var body = res.json();
         return body.data || {};

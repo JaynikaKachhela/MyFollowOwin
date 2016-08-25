@@ -104,9 +104,7 @@ namespace OwinDemo.Controllers
         {
             if (ModelState.IsValid)
             {
-                
                 user.EmailConfirmed = false;
-
                 MailMessage m = new MailMessage(
                 new MailAddress("jaynika@promactinfo.com", "MyFollow"),
                 new MailAddress(user.Email));
@@ -170,6 +168,7 @@ namespace OwinDemo.Controllers
                     if(user.EmailConfirmed==true)
                     {
                         await SignInAsync(user);
+
                         if (User.IsInRole("EndUser"))
                         {                  
                             return RedirectToAction("Index", "User");

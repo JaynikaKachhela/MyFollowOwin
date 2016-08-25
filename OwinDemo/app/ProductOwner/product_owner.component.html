@@ -1,15 +1,11 @@
-﻿<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showForm()' *ngIf="!newProduct">NewProduct</button>
-<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showForm()' *ngIf="newProduct">HideForm</button>
-<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showTable()' *ngIf="!oldProduct">Products</button>
-<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showTable()' *ngIf="oldProduct">HideProducts</button> 
+﻿<h1>ProductOwner</h1>
+<button class="btn btn-success" [routerLink]="['/newProduct']">NewProduct</button>
+<button class="btn btn-success" [routerLink]="['/ownProducts']">OwnProducts</button>
+<button class="btn btn-success" [routerLink]="['/allProduct']">AllProduct</button>
+<button class="btn btn-success" [routerLink]="['/followProducts']">FollowingProduct</button>
+<router-outlet></router-outlet>
 
-<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showProduct()' *ngIf="!isProducts">AllProducts</button>
-<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showProduct()' *ngIf="isProducts">HideAllProducts</button>
-<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showFollowProduct()' *ngIf="!isFolllowProducts">FollowingProducts</button>
-<button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)='showFollowProduct()' *ngIf="isFolllowProducts">HideFollowingProducts</button>
-  
- 
-<div *ngIf="!productDetail">
+<!--<div *ngIf="!productDetail">
     <div *ngIf="newProduct" class="form-group">
         <div class="form-horizontal">
             <form #addProduct="ngForm" class="form-horizontal">
@@ -75,9 +71,9 @@
             </tr>
         </table>
     </div>
-</div>
+</div>-->
 
-<div class='table-responsive' *ngIf="isFolllowProducts">
+<!--<div class='table-responsive' *ngIf="isFolllowProducts">
     <br /><h2 color="blue">FollowingProducts</h2>
     <table class='table'>
         <tr>
@@ -113,11 +109,14 @@
             </td>
             <td>
                 <button class='btn-primary' (click)="unfollowProduct(product)">UnFollow</button>
+                <button class='btn-primary' [hidden]="unfollowed[owner.Id]" (click)="unfollowProduct(product)">UnFollow</button>
+                <h6 [hidden]="!unfollowed[owner.Id]">Unfollowed</h6>
             </td>
         </tr>
     </table>
-</div>
-<div class='table-responsive' *ngIf="isProducts">
+</div>-->
+
+<!--<div class='table-responsive' *ngIf="isProducts">
     <br /><h2 color="blue">AllProducts</h2>
 
     <table class='table'>
@@ -157,9 +156,9 @@
             </td>
         </tr>
     </table>
-</div>
+</div>-->
 
-<div *ngIf="productDetail">
+<!--<div *ngIf="productDetail">
     <h5>ProductName:{{product.Name}}</h5>
     <h5>Description:{{product.Description}}</h5>
     <h5>Type:
@@ -171,9 +170,9 @@
     <h5>PlaystoreUrl:{{product.PlaystoreUrl}}</h5>
     <h5>AppstoreUrl:{{product.AppstoreUrl}}</h5>
     <button class='btn-primary' (click)="newProductUpdate(product)">NewProductUpdate</button>
-</div>
+</div>-->
 
-<div *ngIf="productUpdate">
+<!--<div *ngIf="productUpdate">
     <form #addProductUpdate="ngForm" class="form-horizontal">
         <b>ProductName:</b><br />
         <input type="text" #ProductName="ngForm" ngControl="Name" [(ngModel)]="product.Name" required /><br />
@@ -185,9 +184,9 @@
         <input class="btn-file" type="file" #Media="ngForm" [(ngModel)]="productsUpdate.Media" ngControl="Media" id="Media" /><br />
         <button class='btn-primary' (click)="addProductUpdate(productsUpdate)">NewProductUpdate</button>
      </form>
-</div>
+</div>-->
 
-<div *ngIf="editProduct">
+<!--<div *ngIf="editProduct">
     <form #addProduct="ngForm" class="form-horizontal">
         <b>ProductName:</b><br />
         <input type="text" #ProductName="ngForm" ngControl="Name" [(ngModel)]="product.Name" required /><br />
@@ -208,4 +207,4 @@
         <button class='btn-primary' (click)="onEdit(product)">Save</button>
         <button class='btn-primary' (click)="onNotEdit()">Back</button>
     </form>
-</div>
+</div>-->
