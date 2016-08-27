@@ -63,22 +63,20 @@ namespace OwinDemo.Controllers
 
             return Ok(follower1);
         }
-        //// GET: api/Followers
-        //[HttpGet]
-        //public IQueryable<Product> GetFollowers()
-        //{
-        //    var Id = User.Identity.GetUserId();
-        //    List<Product> products = db.Products.ToList();
-        //    foreach (var product in products.ToList())
-        //    {
-        //        foreach (var follower in db.Followers.ToList())
-        //        {
-        //            if (Id == follower.UserId)
-        //                products.Remove(product);
-        //        }
-        //    }
-        //    return products.AsQueryable();
-        //}
+        // GET: api/Followers
+        [HttpGet]
+        public IQueryable<Followers> GetFollowers()
+        {
+            var Id = User.Identity.GetUserId();
+            List<Followers> followers = db.Followers.ToList();
+            foreach (var follower in followers.ToList())
+            {
+                if (Id != follower.UserId)
+                   followers.Remove(follower);
+                }
+
+            return followers.AsQueryable();
+        }
 
 
 

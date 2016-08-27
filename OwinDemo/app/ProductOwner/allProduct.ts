@@ -1,8 +1,7 @@
 ﻿import {Component, OnInit} from "@angular/core";
-import {ROUTER_DIRECTIVES, Router} from "@angular/router-deprecated";
+import { ROUTER_DIRECTIVES } from '@angular/router';
 import {Product} from '../Model/product'
 import { Service } from '../app.service';
-//Import for design purpose
 import {FORM_DIRECTIVES} from '@angular/common';
 
 @Component({

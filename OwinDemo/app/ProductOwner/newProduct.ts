@@ -1,9 +1,7 @@
 ﻿import {Component, OnInit} from "@angular/core";
-import {ROUTER_DIRECTIVES, Router} from "@angular/router-deprecated";
+import { ROUTER_DIRECTIVES } from '@angular/router';
 import {Product} from '../Model/product'
 import { Service } from '../app.service';
-
-//Import for design purpose
 import {FORM_DIRECTIVES} from '@angular/common';
 
 @Component({
@@ -24,15 +22,7 @@ export class NewProductcomponent {
     }
     Back() {
         this.newProduct = false;
-    }
-    OnLoad() {
-        this.newProduct = false;
-        this.product.AppstoreUrl = "";
-        this.product.Description = "";
-        this.product.HomepageUrl = "";
-        this.product.Name = "";
-        this.product.PlaystoreUrl = "";
-
+        this.product = new Product();
     }
     onSubmit(product: Product) {
         console.log(product);
@@ -43,7 +33,6 @@ export class NewProductcomponent {
             () => {
                 this.newProduct=true;
             });
-        this.newProduct = true;
         console.log("Insered !!!");
   
     }

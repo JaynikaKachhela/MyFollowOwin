@@ -30,10 +30,15 @@ var Service = (function () {
         this.productUpdateUrl = 'api/ProductUpdates';
         this.ownerUrl = 'api/ApplicationUsers';
         this.productUrl = 'api/Products';
+        this.productURL = 'api/Product';
         this.followUrl = 'api/Followers';
     }
     Service.prototype.getOwner = function () {
         return this.http.get(this.ownerUrl)
+            .map(function (response) { return response.json(); });
+    };
+    Service.prototype.getLoginUser = function () {
+        return this.http.get(this.ownerUrl + "/loggedUser")
             .map(function (response) { return response.json(); });
     };
     Service.prototype.deleteOwnerState = function (ownerId) {
@@ -62,7 +67,7 @@ var Service = (function () {
             .map(function (response) { return response.json(); });
     };
     Service.prototype.getAllProduct = function () {
-        return this.http.get(this.productUrl + '/7')
+        return this.http.get(this.productURL)
             .map(function (response) { return response.json(); });
     };
     Service.prototype.deleteProduct = function (product) {
@@ -89,7 +94,7 @@ var Service = (function () {
             .map(function (response) { return response.json(); });
     };
     Service.prototype.getFollowedProduct = function () {
-        return this.http.get(this.productUrl + '/5')
+        return this.http.get(this.productUrl + '/productOwner')
             .map(function (response) { return response.json(); });
     };
     Service.prototype.deleteFollower = function (product) {

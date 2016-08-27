@@ -74,7 +74,7 @@ namespace OwinDemo.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser {UserName = model.UserName, Email = model.Email,Address=model.Address,DateOfBirth=model.DateOfBirth,Password=model.Password,ProductOwner=new ProductOwner() };
+                var user = new ApplicationUser {UserName = model.UserName, isPending=false, Email = model.Email,Address=model.Address,DateOfBirth=model.DateOfBirth,Password=model.Password,ProductOwner=new ProductOwner() };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -171,11 +171,11 @@ namespace OwinDemo.Controllers
                 {
                     if(user.EmailConfirmed==true)
                     {
-                        await SignInAsync(user);
-
+                        //await SignInAsync(user);
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         if (User.IsInRole("EndUser"))
                         {                  
-                            return RedirectToAction("Index", "User");
+                             return RedirectToAction("Index", "User");
                         }
                         else if (User.IsInRole("Administrator"))
                         {
@@ -185,7 +185,6 @@ namespace OwinDemo.Controllers
                         {
                             return RedirectToAction("ProductOwner", "User");
                         }
-
                     }
                     else
                     {
@@ -481,6 +480,7 @@ namespace OwinDemo.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            AuthenticationManager.SignOut();
             return RedirectToAction("Login", "Account");
         }
 

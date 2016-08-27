@@ -8,13 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
-//Import for design purpose
-var common_1 = require('@angular/common');
-var product_1 = require('../Model/product');
 var productUpdate_1 = require('../Model/productUpdate');
 var app_service_1 = require('../app.service');
+var core_1 = require("@angular/core");
+var router_1 = require('@angular/router');
+var product_1 = require('../Model/product');
+var common_1 = require('@angular/common');
 var OwnProductcomponent = (function () {
     function OwnProductcomponent(service) {
         this.service = service;
@@ -22,7 +21,6 @@ var OwnProductcomponent = (function () {
         this.detailProduct = false;
         this.updates = false;
         this.editProduct = false;
-        this.unfollowed = [];
         this.products = new Array();
         this.product = new product_1.Product();
         this.productsUpdate = new productUpdate_1.ProductUpdate();
@@ -39,7 +37,7 @@ var OwnProductcomponent = (function () {
         var displayOwner = this.service.getProducts()
             .subscribe(function (products) {
             _this.products = products;
-            //console.log(this.products);
+            console.log(_this.products);
         }, function (err) {
             _this.errorMessage = err;
         });
@@ -84,6 +82,9 @@ var OwnProductcomponent = (function () {
             _this.showUpdates(_this.product.Id);
         });
         console.log("Added");
+        this.productsUpdate = new productUpdate_1.ProductUpdate();
+        this.productUpdate = false;
+        setTimeout(function () { return _this.productUpdate = true; }, 0);
     };
     OwnProductcomponent.prototype.newProductUpdate = function (product) {
         this.productUpdate = true;
@@ -105,7 +106,7 @@ var OwnProductcomponent = (function () {
             selector: "ownProducts",
             templateUrl: "app/ProductOwner/ownProduct.html",
             providers: [app_service_1.Service],
-            directives: [router_deprecated_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES]
+            directives: [router_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [app_service_1.Service])
     ], OwnProductcomponent);

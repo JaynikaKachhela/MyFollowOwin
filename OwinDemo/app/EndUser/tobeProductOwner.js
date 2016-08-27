@@ -18,10 +18,26 @@ var ToBeProductOwnercomponent = (function () {
     function ToBeProductOwnercomponent(userservice) {
         this.userservice = userservice;
         this.fillForm = false;
+        this.isPending = false;
         this.owners = new Array();
         this.owner = new owner_1.Owner();
         this.fillForm = false;
     }
+    ToBeProductOwnercomponent.prototype.ngOnInit = function () {
+        this.getLoginUser();
+    };
+    ToBeProductOwnercomponent.prototype.getLoginUser = function () {
+        var _this = this;
+        var displayOwner = this.userservice.getLoginUser()
+            .subscribe(function (owners) {
+            _this.productOwners = owners;
+            _this.productOwner = _this.productOwners[0];
+            _this.isPending = _this.productOwner.isPending;
+            console.log(_this.isPending);
+        }, function (err) {
+            _this.errorMessage = err;
+        });
+    };
     ToBeProductOwnercomponent.prototype.onSubmit = function (owner) {
         var _this = this;
         console.log(owner);
@@ -30,6 +46,7 @@ var ToBeProductOwnercomponent = (function () {
             _this.fillForm = true;
         });
         console.log("Added...");
+        this.owner = new owner_1.Owner();
     };
     ToBeProductOwnercomponent = __decorate([
         core_1.Component({

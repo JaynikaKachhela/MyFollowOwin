@@ -20,7 +20,7 @@ namespace OwinDemo.Controllers
     [RoutePrefix("api/[controller]")]
     public class ApplicationUsersController : ApiController
     {
-        
+
         private OwinContext db = new OwinContext();
 
         // GET: api/ApplicationUsers
@@ -29,19 +29,19 @@ namespace OwinDemo.Controllers
         [HttpGet]
         public IQueryable<ApplicationUser> GetApplicationUsers()
         {
-            var userManager= HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             List<ApplicationUser> Users = db.Users.ToList();
-        
+
             foreach (ApplicationUser user in Users.ToList())
             {
-                if(!((userManager.IsInRole(user.Id,"EndUser"))&&( user.ProductOwner.CompanyName!=null)))
+                if (!((userManager.IsInRole(user.Id, "EndUser")) && (user.ProductOwner.CompanyName != null)))
                 {
                     Users.Remove(user);
                 }
             }
             //string[] usersInRole =RoleProvider.GetUsersInRole("EndUser");
             return Users.AsQueryable();
-           
+
         }
         // POST: api/ApplicationUsers
         [ResponseType(typeof(ProductOwner))]
@@ -57,6 +57,7 @@ namespace OwinDemo.Controllers
             var Id = User.Identity.GetUserId();
             ApplicationUser appUser = db.Users.Find(Id);
             appUser.ProductOwner = applicationUser;
+            appUser.isPending = true;
             db.Entry(appUser).State = EntityState.Modified;
             //db.ApplicationUsers.Add(applicationUser);
 
@@ -91,8 +92,10 @@ namespace OwinDemo.Controllers
             {
                 var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
                 ApplicationUser user = db.Users.Find(id);
+                user.isPending = false;
                 UserManager.RemoveFromRole(user.Id, "EndUser");
                 UserManager.AddToRole(user.Id, "ProductOwner");
+                db.Entry(user).State = EntityState.Modified;
                 //System.Web.Security.Roles.AddUserToRole(user.Id, "ProductOwner");
             }
 
@@ -110,6 +113,17 @@ namespace OwinDemo.Controllers
             return StatusCode(HttpStatusCode.NoContent);
 
         }
+        //PUT: api/ApplicationUsers/5
+        //[ResponseType(typeof(void))]
+        [HttpGet]
+        public IQueryable PutApplicationUser(string id)
+        {
+            var Id = User.Identity.GetUserId();
+            ApplicationUser user = db.Users.Find(Id);
+            List<ApplicationUser> Users = new List<ApplicationUser>();
+            Users.Add(user);
+            return Users.AsQueryable();
+        }
         // DELETE: api/ApplicationUsers/5
         [ResponseType(typeof(ApplicationUser))]
         [HttpDelete]
@@ -117,6 +131,7 @@ namespace OwinDemo.Controllers
         {
             ApplicationUser applicationUser = db.Users.Find(id);
             applicationUser.ProductOwner = new ProductOwner();
+            applicationUser.isPending = false;
             db.Entry(applicationUser).State = EntityState.Modified;
             //db.ApplicationUsers.Add(applicationUser);
 
@@ -152,20 +167,9 @@ namespace OwinDemo.Controllers
         {
             return db.Users.Count(e => e.Id == id) > 0;
         }
+
+
+        
+
     }
-
-    ////PUT: api/ApplicationUsers/5
-    //[ResponseType(typeof(void))]
-    //[HttpGet]
-    //public IQueryable PutApplicationUser(int id)
-    //{
-    //    var Id = User.Identity.GetUserId();
-    //    ApplicationUser user = db.Users.Find(Id);
-    //    List<ApplicationUser> Users = new List<ApplicationUser>();
-    //    if (user.ProductOwner.CompanyName != null)
-    //        Users.Add(user);
-    //    return Users.AsQueryable();
-    //}
-
-
 }

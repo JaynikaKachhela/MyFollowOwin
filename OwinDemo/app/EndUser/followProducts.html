@@ -1,5 +1,5 @@
-﻿<div class='table-responsive' *ngIf="!updates">
-    <br /><h2 color="blue">FollowingProducts</h2>
+﻿﻿<div class='table-responsive' *ngIf="!updates">
+    <h2 color="blue">FollowingProducts</h2>
     <table class='table'>
         <tr>
             <th>ProductName</th>
@@ -21,7 +21,6 @@
                 <h6 *ngIf="product.Type===1">Mobile</h6>
                 <h6 *ngIf="product.Type===2">web</h6>
                 <h6 *ngIf="product.Type===3">IoT</h6>
-
             </td>
             <td>
                 {{product.HomepageUrl}}
@@ -40,14 +39,13 @@
     </table>
 </div>
 <div *ngIf="updates">
-    <h2>{{ProductName}}'s Updates</h2><br/>
+    <h2>{{ProductName}}'s Updates</h2><br />
     <button class='btn-primary' (click)="OnBack()">FollowingProductList</button>
     <table class="table table-striped">
         <tr>
             <th>Intrduction</th>
             <th>Detail</th>
             <th>Media</th>
-
         </tr>
         <tr *ngFor="let productUpdate of productUpdates">
             <td>

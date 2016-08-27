@@ -1,7 +1,7 @@
 ﻿<h1>New Product</h1>
     <div [hidden]="newProduct" class="form-group">
         <div class="form-horizontal">
-            <form #addProduct="ngForm" class="form-horizontal" onload="OnLoad()">
+            <form #addProduct="ngForm" class="form-horizontal">
                 <b>ProductName:</b><br />
                 <input type="text" #Name="ngForm" ngControl="Name" [(ngModel)]="product.Name" required /><br />
                 <b>Description:</b><br />

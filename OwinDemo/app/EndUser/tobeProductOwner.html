@@ -1,6 +1,6 @@
-﻿<form #ownerForm="ngForm" [hidden]="fillForm">
-
-        <br /><h2 color="blue">Fill detail to become product owner.</h2>
+﻿<form #ownerForm="ngForm" [hidden]="isPending" >
+    <div [hidden]="fillForm">
+        <h2 color="blue">Fill detail to become product owner.</h2>
 
         Company Name<br />
         <input type="text" #CompanyName="ngForm" ngControl="CompanyName" [(ngModel)]="owner.CompanyName" required /><br />
@@ -11,8 +11,13 @@
         WebsiteUrl:<br />
         <input type="text" #WebsiteUrl="ngForm" ngControl="WebsiteUrl" [(ngModel)]="owner.WebsiteUrl" required /><br />
         <button type="button" class="btn btn-default" (click)="onSubmit(owner)">Submit</button>
-
+    </div>
 </form>
+
+<div [hidden]="!isPending" class="alert alert-success">
+    Status : <strong>Pending</strong> already requested your request is still pending...
+</div>
+
 
 <div [hidden]="!fillForm" class="alert alert-success">
     <strong>Success!</strong> your request is being send for approval.

@@ -240,6 +240,7 @@
     <Compile Include="Controllers\FollowersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProductUpdatesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -267,7 +268,6 @@
     <Content Include="app\EndUser\tobeProductOwner.html" />
     <Content Include="app\EndUser\user.component.html" />
     <Content Include="app\ProductOwner\allProduct.html" />
-    <Content Include="app\ProductOwner\followedProduct.html" />
     <Content Include="app\ProductOwner\newProduct.html" />
     <Content Include="app\ProductOwner\ownProduct.html" />
     <Content Include="app\ProductOwner\product_owner.component.html" />
@@ -365,6 +365,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app\Admin\admin.component.ts" />
+    <TypeScriptCompile Include="app\Model\followers.ts" />
     <TypeScriptCompile Include="app\Model\productOwner.ts" />
     <TypeScriptCompile Include="app\app.routes.ts" />
     <TypeScriptCompile Include="app\app.service.ts" />
@@ -375,7 +376,6 @@
     <TypeScriptCompile Include="app\EndUser\user.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\ProductOwner\allProduct.ts" />
-    <TypeScriptCompile Include="app\ProductOwner\FollowProducts.ts" />
     <TypeScriptCompile Include="app\ProductOwner\newProduct.ts" />
     <TypeScriptCompile Include="app\ProductOwner\ownProduct.ts" />
     <TypeScriptCompile Include="app\Model\product.ts" />

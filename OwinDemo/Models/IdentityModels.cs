@@ -25,6 +25,7 @@ namespace OwinDemo.Models
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
         public Address Address { get; set; }
+        public bool isPending { get; set; }
         public ProductOwner ProductOwner { get; set; }
         public ICollection<Product> Products { get; set; }
         public ICollection<Followers> Followers { get; set; }

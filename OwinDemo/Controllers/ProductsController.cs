@@ -43,12 +43,33 @@ namespace OwinDemo.Controllers
                 {
                     foreach (var follower in db.Followers.ToList())
                     {
-                        if ((Id == follower.UserId) && (product.Id==follower.ProductId))
+                        if ((Id == follower.UserId) && (product.Id == follower.ProductId))
                             products.Remove(product);
                     }
                 }
             }
             return products.AsQueryable();
+        }
+
+
+        // GET: api/Products/5
+        //[ResponseType(typeof(Product))]
+        [HttpGet]
+        public IQueryable<Product> GetProduct(string id)
+        {
+            List<Product> products = new List<Product>();
+
+            var Id = User.Identity.GetUserId();
+            foreach (var follower in db.Followers.ToList())
+            {
+                if (follower.UserId == Id)
+                {
+                    Product product = db.Products.Find(follower.ProductId);
+                    products.Add(product);
+                }
+            }
+            return products.AsQueryable();
+           
         }
 
 
@@ -125,54 +146,6 @@ namespace OwinDemo.Controllers
             }
 
             return StatusCode(HttpStatusCode.NoContent);
-        }
-
-
-        // GET: api/Products/5
-        //[ResponseType(typeof(Product))]
-        [HttpGet]
-        public IQueryable<Product> GetProduct(int id)
-        {
-            List<Product> products = new List<Product>();
-
-            var Id = User.Identity.GetUserId();
-            if (id == 5)
-            {
-
-                foreach (var follower in db.Followers.ToList())
-                {
-                    if (follower.UserId == Id)
-                    {
-                        Product product = db.Products.Find(follower.ProductId);
-                        products.Add(product);
-                    }
-
-                }
-            }
-            if (id == 7)
-            {
-                foreach (var product in db.Products.ToList())
-                {
-                    if ((Id != product.ProductOwnerId))
-                    {
-                        products.Add(product);
-                        break;
-                    }
-                }
-                foreach(var product in products.ToList())
-                {
-                    foreach (var follower in db.Followers.ToList())
-                    {
-                        if (follower.ProductId == product.Id && follower.UserId == Id)
-                        {
-                                products.Remove(product);
-                                break;
-                        }
-
-                    }
-                }
-            }
-            return products.AsQueryable();
         }
 
         protected override void Dispose(bool disposing)

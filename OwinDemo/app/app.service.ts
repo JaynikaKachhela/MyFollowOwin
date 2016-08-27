@@ -2,6 +2,7 @@
 import { Http, Response, Headers } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import { Owners }          from './Model/productOwner';
+import { Followers }          from './Model/followers';
 import { Product }          from './Model/product';
 import { ProductUpdate }    from './Model/productUpdate';
 import { Owner } from './Model/owner';
@@ -28,11 +29,16 @@ export class Service {
     private productUpdateUrl = 'api/ProductUpdates';
     private ownerUrl = 'api/ApplicationUsers';
     private productUrl = 'api/Products';
+    private productURL = 'api/Product';
     private followUrl = 'api/Followers';
 
     constructor(private http: Http) { }
     getOwner() {
         return this.http.get(this.ownerUrl)
+            .map(response => response.json());
+    }
+    getLoginUser() {
+        return this.http.get(this.ownerUrl+"/loggedUser")
             .map(response => response.json());
     }
     deleteOwnerState(ownerId: string) {
@@ -63,9 +69,8 @@ export class Service {
         return this.http.get(this.productUrl)
             .map(response => response.json());
     }
-
     getAllProduct() {
-        return this.http.get(this.productUrl + '/7')
+        return this.http.get(this.productURL)
             .map(response => response.json());
     }
     deleteProduct(product: Product) {
@@ -99,7 +104,7 @@ export class Service {
     }
 
     getFollowedProduct() {
-        return this.http.get(this.productUrl + '/5')
+        return this.http.get(this.productUrl + '/productOwner')
             .map(response => response.json());
     }
 

@@ -46,7 +46,7 @@
     </div>
 </div>
 
-                
+
 <div *ngIf="editProduct">
     <form #addProduct="ngForm" class="form-horizontal">
         <b>ProductName:</b><br />
@@ -60,31 +60,32 @@
             <option value="IOT">IOT</option>
         </select><br />
         <b>HomepageUrl:</b><br />
-        <input type="text" #HomepageUrl="ngForm" ngControl="HomepageUrl" [(ngModel)]="product.HomepageUrl"  /><br />
+        <input type="text" #HomepageUrl="ngForm" ngControl="HomepageUrl" [(ngModel)]="product.HomepageUrl" /><br />
         <b>PlaystoreUrl:</b><br />
-        <input type="text" #PlaystoreURL="ngForm" ngControl="PlaystoreUrl" [(ngModel)]="product.PlaystoreUrl"  /><br />
+        <input type="text" #PlaystoreURL="ngForm" ngControl="PlaystoreUrl" [(ngModel)]="product.PlaystoreUrl" /><br />
         <b>AppstoreUrl:</b><br />
-        <input type="text" #AppstoreUrl="ngForm" ngControl="AppstoreUrl" [(ngModel)]="product.AppstoreUrl"  /><br /><br />
+        <input type="text" #AppstoreUrl="ngForm" ngControl="AppstoreUrl" [(ngModel)]="product.AppstoreUrl" /><br /><br />
         <button class='btn-primary' (click)="onEdit(product)">Save</button>
         <button class='btn-primary' (click)="onBack()">Back</button>
     </form>
 </div>
-    
-<div *ngIf="detailProduct">
-        <h5>ProductName:{{product.Name}}</h5>
-        <h5>Description:{{product.Description}}</h5>
-        <h5>Type:
-           <h6 *ngIf="product.Type===1">Mobile</h6>
-           <h6 *ngIf="product.Type===2">web</h6>
-           <h6 *ngIf="product.Type===3">IoT</h6>
-        </h5>
-        <h5>HomepageUrl:{{product.HomepageUrl}}</h5>
-        <h5>PlaystoreUrl:{{product.PlaystoreUrl}}</h5>
-        <h5>AppstoreUrl:{{product.AppstoreUrl}}</h5>
 
-        <button class='btn-primary' (click)="newProductUpdate(product)">NewProductUpdate</button>
-        <button class='btn-primary' (click)="showUpdates(product.Id)">ProductUpdates</button>
-        <button class='btn-primary' (click)="onBack()">Back</button>
+<div *ngIf="detailProduct">
+    <h5>ProductName:{{product.Name}}</h5>
+    <h5>Description:{{product.Description}}</h5>
+    <h5>
+        Type:
+        <h6 *ngIf="product.Type===1">Mobile</h6>
+        <h6 *ngIf="product.Type===2">web</h6>
+        <h6 *ngIf="product.Type===3">IoT</h6>
+    </h5>
+    <h5>HomepageUrl:{{product.HomepageUrl}}</h5>
+    <h5>PlaystoreUrl:{{product.PlaystoreUrl}}</h5>
+    <h5>AppstoreUrl:{{product.AppstoreUrl}}</h5>
+
+    <button class='btn-primary' (click)="newProductUpdate(product)">NewProductUpdate</button>
+    <button class='btn-primary' (click)="showUpdates(product.Id)">ProductUpdates</button>
+    <button class='btn-primary' (click)="onBack()">Back</button>
 </div>
 
 <div *ngIf="updates">
@@ -94,7 +95,7 @@
             <th>Intrduction</th>
             <th>Detail</th>
             <th>Media</th>
-            
+
         </tr>
         <tr *ngFor="let productUpdate of productUpdates">
             <td>
@@ -104,24 +105,29 @@
                 {{productUpdate.Detail}}
             </td>
             <td>
-                {{Media}}
+                {{productUpdate.Media}}
             </td>
         </tr>
     </table>
 </div>
 
-   <div *ngIf="productUpdate">
-       <h3>New Update</h3>
-        <form #addProductUpdate="ngForm" class="form-horizontal">
-            <b>ProductName:</b><br />
-            <input type="text" #ProductName="ngForm" ngControl="Name" [(ngModel)]="product.Name" required /><br />
-            <b>Introduction:</b><br />
-            <input type="text" #Introduction="ngForm" ngControl="Introduction" [(ngModel)]="productsUpdate.Introduction" required /><br />
-            <b>Detail:</b><br />
-            <input type="text" #Detail="ngForm" ngControl="Detail" [(ngModel)]="productsUpdate.Detail" required /><br />
-            <b>Media:</b><br />
-            <input class="btn-file" type="file" #Media="ngForm" [(ngModel)]="productsUpdate.Media" ngControl="Media" id="Media" /><br />
-            <button class='btn-primary' (click)="newUpdate(productsUpdate)">AddProductUpdate</button>
-            <button class='btn-primary' (click)="onBack()">Product List</button>
-         </form>
-    </div>
+<div *ngIf="productUpdate">
+    <h3>New Update</h3>
+    <form #addProductUpdate="ngForm" class="form-horizontal">
+        <b>ProductName:</b><br />
+        <input type="text" #ProductName="ngForm" ngControl="Name" [(ngModel)]="product.Name" required /><br />
+       
+        <b>Introduction:</b><br />
+        <input type="text" #Introduction="ngForm" ngControl="Introduction" id="Name"[(ngModel)]="productsUpdate.Introduction" required /><br />
+        <div [hidden]="Introduction.valid || Introduction.pristine" class="alert alert-danger">
+            This is required field
+        </div>
+
+        <b>Detail:</b><br />
+        <input type="text" #Detail="ngForm" ngControl="Detail" [(ngModel)]="productsUpdate.Detail" required /><br />
+        <b>Media:</b><br />
+        <input class="btn-file" type="file" #Media="ngForm" [(ngModel)]="productsUpdate.Media" ngControl="Media" id="Media" /><br />
+        <button class='btn-primary' (click)="newUpdate(productsUpdate)">AddProductUpdate</button>
+        <button class='btn-primary' (click)="onBack()">Product List</button>
+    </form>
+</div>

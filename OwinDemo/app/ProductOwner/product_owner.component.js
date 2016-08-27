@@ -12,7 +12,7 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var ownProduct_1 = require('./ownProduct');
 var newProduct_1 = require('./newProduct');
-var FollowProducts_1 = require('./FollowProducts');
+var FollowProducts_1 = require('../EndUser/FollowProducts');
 var allProduct_1 = require('./allProduct');
 var app_service_1 = require('../app.service');
 var ProductOwnerComponent = (function () {
@@ -24,7 +24,7 @@ var ProductOwnerComponent = (function () {
             templateUrl: 'app/ProductOwner/product_owner.component.html',
             directives: [router_1.ROUTER_DIRECTIVES],
             providers: [app_service_1.Service],
-            precompile: [ownProduct_1.OwnProductcomponent, allProduct_1.AllProductcomponent, newProduct_1.NewProductcomponent, FollowProducts_1.FollowedProductcomponent]
+            precompile: [ownProduct_1.OwnProductcomponent, allProduct_1.AllProductcomponent, newProduct_1.NewProductcomponent, FollowProducts_1.FollowProductcomponent]
         }), 
         __metadata('design:paramtypes', [])
     ], ProductOwnerComponent);

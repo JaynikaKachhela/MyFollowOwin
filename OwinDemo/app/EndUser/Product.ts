@@ -12,7 +12,7 @@ import {FORM_DIRECTIVES} from '@angular/common';
     selector: "Products",
     templateUrl: "app/EndUser/products.html",
     providers: [Service],
-    directives: [ROUTER_DIRECTIVES,FORM_DIRECTIVES]
+    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES]
 })
 
 export class Productcomponent implements OnInit {
@@ -26,9 +26,9 @@ export class Productcomponent implements OnInit {
     }
     ngOnInit() {
         console.log("loaded..");
-       
+
         this.getProducts();
-        
+
     }
     getProducts() {
         var displayProduct = this.userservice.getProduct()
@@ -52,4 +52,4 @@ export class Productcomponent implements OnInit {
         console.log("Added...");
     }
 }
-   
+

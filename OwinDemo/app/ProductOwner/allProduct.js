@@ -9,9 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
+var router_1 = require('@angular/router');
 var app_service_1 = require('../app.service');
-//Import for design purpose
 var common_1 = require('@angular/common');
 var AllProductcomponent = (function () {
     function AllProductcomponent(service) {
@@ -41,7 +40,7 @@ var AllProductcomponent = (function () {
             selector: "allProduct",
             templateUrl: "app/ProductOwner/allProduct.html",
             providers: [app_service_1.Service],
-            directives: [router_deprecated_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES]
+            directives: [router_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [app_service_1.Service])
     ], AllProductcomponent);

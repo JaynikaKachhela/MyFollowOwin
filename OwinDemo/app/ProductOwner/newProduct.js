@@ -9,10 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_deprecated_1 = require("@angular/router-deprecated");
+var router_1 = require('@angular/router');
 var product_1 = require('../Model/product');
 var app_service_1 = require('../app.service');
-//Import for design purpose
 var common_1 = require('@angular/common');
 var NewProductcomponent = (function () {
     function NewProductcomponent(ownerservice) {
@@ -24,14 +23,7 @@ var NewProductcomponent = (function () {
     }
     NewProductcomponent.prototype.Back = function () {
         this.newProduct = false;
-    };
-    NewProductcomponent.prototype.OnLoad = function () {
-        this.newProduct = false;
-        this.product.AppstoreUrl = "";
-        this.product.Description = "";
-        this.product.HomepageUrl = "";
-        this.product.Name = "";
-        this.product.PlaystoreUrl = "";
+        this.product = new product_1.Product();
     };
     NewProductcomponent.prototype.onSubmit = function (product) {
         var _this = this;
@@ -40,7 +32,6 @@ var NewProductcomponent = (function () {
             .subscribe(function (response) { console.log("Success Response" + response); }, function (error) { console.log("Error happened" + error); }, function () {
             _this.newProduct = true;
         });
-        this.newProduct = true;
         console.log("Insered !!!");
     };
     NewProductcomponent = __decorate([
@@ -48,7 +39,7 @@ var NewProductcomponent = (function () {
             selector: "newProduct",
             templateUrl: "app/ProductOwner/newProduct.html",
             providers: [app_service_1.Service],
-            directives: [router_deprecated_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES]
+            directives: [router_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES]
         }), 
         __metadata('design:paramtypes', [app_service_1.Service])
     ], NewProductcomponent);
