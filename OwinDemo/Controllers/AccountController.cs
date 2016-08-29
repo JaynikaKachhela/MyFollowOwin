@@ -166,34 +166,41 @@ namespace OwinDemo.Controllers
             if(ModelState.IsValid)
             {
                 var user1 = await UserManager.FindByEmailAsync(model.Email);
-                var user = await UserManager.FindAsync(user1.UserName,model.Password);
-                if(user!=null)
+                if (user1 != null)
                 {
-                    if(user.EmailConfirmed==true)
+                    var user = await UserManager.FindAsync(user1.UserName, model.Password);
+                    if (user != null)
                     {
-                        //await SignInAsync(user);
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        if (User.IsInRole("EndUser"))
-                        {                  
-                             return RedirectToAction("Index", "User");
-                        }
-                        else if (User.IsInRole("Administrator"))
+                        if (user.EmailConfirmed == true)
                         {
-                            return RedirectToAction("Admin", "User");
+                            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                            if (User.IsInRole("EndUser"))
+                            {
+                                return RedirectToAction("Index", "User");
+                            }
+                            else if (User.IsInRole("Administrator"))
+                            {
+                                return RedirectToAction("Admin", "User");
+                            }
+                            else if (User.IsInRole("ProductOwner"))
+                            {
+                                return RedirectToAction("ProductOwner", "User");
+                            }
                         }
-                        else if(User.IsInRole("ProductOwner"))
+                        else
                         {
-                            return RedirectToAction("ProductOwner", "User");
+                            ModelState.AddModelError("", "Please confirm your email address first...");
                         }
                     }
                     else
                     {
-                        ModelState.AddModelError("","Please confirm your email address first...");
+                        ModelState.AddModelError("", "Invalid password.please retry with correct one...");
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("","Invalid Username or password...");
+                    ModelState.AddModelError("", "you are given wrong Email-Id correct it and try again...");
                 }
             }
             return View(model);
@@ -480,7 +487,7 @@ namespace OwinDemo.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            AuthenticationManager.SignOut();
+           
             return RedirectToAction("Login", "Account");
         }
 

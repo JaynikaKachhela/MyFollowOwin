@@ -4,6 +4,7 @@ import {Component, OnInit} from "@angular/core";
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import {Product} from '../Model/product';
 import {FORM_DIRECTIVES} from '@angular/common';
+import {ImageUpload, ImageResult, ResizeOptions} from 'ng2-imageupload';
 
 
 
@@ -11,7 +12,7 @@ import {FORM_DIRECTIVES} from '@angular/common';
     selector: "ownProducts",
     templateUrl: "app/ProductOwner/ownProduct.html",
     providers: [Service],
-    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES]
+    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, ImageUpload]
 })
 export class OwnProductcomponent implements OnInit {
 
@@ -26,6 +27,11 @@ export class OwnProductcomponent implements OnInit {
     productsUpdate: ProductUpdate;
     productUpdates: Array<ProductUpdate>;
     errorMessage: string;
+
+    imageUpload(path: ImageResult) {
+        this.productsUpdate.Media = path.dataURL;
+
+    }
 
     constructor(private service: Service) {
         this.products = new Array<Product>();

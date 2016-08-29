@@ -1,5 +1,4 @@
-﻿
-<div *ngIf="!detailProduct">
+﻿<div *ngIf="!detailProduct">
     <div *ngIf="!productUpdate">
         <div *ngIf="!updates">
             <br /><h2 color="blue">Own Products</h2>
@@ -105,7 +104,7 @@
                 {{productUpdate.Detail}}
             </td>
             <td>
-                {{productUpdate.Media}}
+                <img [src]="productUpdate.Media">
             </td>
         </tr>
     </table>
@@ -126,7 +125,10 @@
         <b>Detail:</b><br />
         <input type="text" #Detail="ngForm" ngControl="Detail" [(ngModel)]="productsUpdate.Detail" required /><br />
         <b>Media:</b><br />
-        <input class="btn-file" type="file" #Media="ngForm" [(ngModel)]="productsUpdate.Media" ngControl="Media" id="Media" /><br />
+        <input class="btn-file" type="file" image-upload (imageSelected)="imageUpload($event)" #Media="ngForm" [(ngModel)]="productsUpdate.Media" ngControl="Media" id="Media" /><br />
+         <!--<img [src]="src" [hidden]="!src">
+        <input class="btn-file" type="file" #Media="ngForm" [(ngModel)]="productsUpdate.Media" ngControl="Media" id="Media"/>-->
+
         <button class='btn-primary' (click)="newUpdate(productsUpdate)">AddProductUpdate</button>
         <button class='btn-primary' (click)="onBack()">Product List</button>
     </form>

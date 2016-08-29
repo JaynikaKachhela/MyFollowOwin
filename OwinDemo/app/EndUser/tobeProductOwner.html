@@ -3,14 +3,30 @@
         <h2 color="blue">Fill detail to become product owner.</h2>
 
         Company Name<br />
-        <input type="text" #CompanyName="ngForm" ngControl="CompanyName" [(ngModel)]="owner.CompanyName" required /><br />
+        <input class="form-control" #CompanyName="ngForm" type="text" [(ngModel)]="owner.CompanyName" ngControl="CompanyName" id="CompanyName" required /><br />
+        <div [hidden]="CompanyName.valid || CompanyName.pristine" class="alert alert-danger">
+            company name must not be blank.
+        </div>
+
         Description:<br />
-        <input type="text" #Description="ngForm" ngControl="Description" [(ngModel)]="owner.Description" /><br />
+        <input class="form-control" type="text" #Description="ngForm" ngControl="Description" [(ngModel)]="owner.Description" id="Description" required /><br />
+        <div [hidden]="Description.valid || Description.pristine" class="alert alert-danger">
+            you have to provide decription.
+        </div>
+
         FoundedYear:<br />
-        <input type="number" #FoundedYear="ngForm" ngControl="FoundedYear" [(ngModel)]="owner.FoundedYear" /><br />
+        <input class="form-control" type="number" #FoundedYear="ngForm" ngControl="FoundedYear" [(ngModel)]="owner.FoundedYear" id="FoundedYear" required pattern="^(198\d{1}|200\d{1}|201[0-6])$" /><br />
+        <div [hidden]="FoundedYear.valid || FoundedYear.pristine" class="alert alert-danger">
+            Founded year must be present or past year.
+        </div>
+
         WebsiteUrl:<br />
-        <input type="text" #WebsiteUrl="ngForm" ngControl="WebsiteUrl" [(ngModel)]="owner.WebsiteUrl" required /><br />
-        <button type="button" class="btn btn-default" (click)="onSubmit(owner)">Submit</button>
+        <input class="form-control" type="text" #WebsiteUrl="ngForm" ngControl="WebsiteUrl" [(ngModel)]="owner.WebsiteUrl" id="WebsiteUrl" pattern="^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$" /><br />
+        <div [hidden]="WebsiteUrl.valid || WebsiteUrl.pristine" class="alert alert-danger">
+           please! Enter valid Url.
+        </div>
+
+        <button type="button" class="btn btn-default" [disabled]="!ownerForm.form.valid" (click)="onSubmit(owner)">Submit</button>
     </div>
 </form>
 

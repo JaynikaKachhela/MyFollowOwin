@@ -15,6 +15,8 @@ namespace OwinDemo.Models
         public string Country { get; set; }
         public long Pincode { get; set; }
         [DataType(DataType.PhoneNumber)]
+        [Required(ErrorMessage = "Contact Number Required!")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Entered contact number format is not valid.")]
         public string ContactNumber { get; set; }
     }
 }

@@ -14,6 +14,7 @@ var core_1 = require("@angular/core");
 var router_1 = require('@angular/router');
 var product_1 = require('../Model/product');
 var common_1 = require('@angular/common');
+var ng2_imageupload_1 = require('ng2-imageupload');
 var OwnProductcomponent = (function () {
     function OwnProductcomponent(service) {
         this.service = service;
@@ -26,6 +27,9 @@ var OwnProductcomponent = (function () {
         this.productsUpdate = new productUpdate_1.ProductUpdate();
         this.productUpdates = new Array();
     }
+    OwnProductcomponent.prototype.imageUpload = function (path) {
+        this.productsUpdate.Media = path.dataURL;
+    };
     OwnProductcomponent.prototype.ngOnInit = function () {
         this.getProducts();
         this.detailProduct = false;
@@ -106,7 +110,7 @@ var OwnProductcomponent = (function () {
             selector: "ownProducts",
             templateUrl: "app/ProductOwner/ownProduct.html",
             providers: [app_service_1.Service],
-            directives: [router_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES]
+            directives: [router_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES, ng2_imageupload_1.ImageUpload]
         }), 
         __metadata('design:paramtypes', [app_service_1.Service])
     ], OwnProductcomponent);

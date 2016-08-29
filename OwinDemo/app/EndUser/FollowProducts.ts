@@ -18,6 +18,7 @@ export class FollowProductcomponent implements OnInit {
     followedProduct: Array<Product>;
     followedProduct1: Array<Product>;
     ProductName: string;
+    userId: string;
     product: Product
     errorMessage: string;
     updates: boolean = false;
@@ -29,7 +30,7 @@ export class FollowProductcomponent implements OnInit {
         this.followedProduct1 = new Array<Product>();
         this.productsUpdate = new ProductUpdate();
         this.productUpdates = new Array<ProductUpdate>();
-
+        this.userId = 'shgfjhgfjwg';
         this.product = new Product();
     }
     ngOnInit() {
@@ -63,7 +64,7 @@ export class FollowProductcomponent implements OnInit {
 
     }
     getFollowedProduct() {
-        var displayOwner = this.userservice.getFollowedProduct()
+        var displayOwner = this.userservice.getFollowedProduct(this.userId)
             .subscribe((products) => {
                 this.followedProduct = products
                 

@@ -103,8 +103,8 @@ export class Service {
             .map(response => response.json());
     }
 
-    getFollowedProduct() {
-        return this.http.get(this.productUrl + '/productOwner')
+    getFollowedProduct(userId:string) {
+        return this.http.get(this.productUrl + "/" + userId)
             .map(response => response.json());
     }
 

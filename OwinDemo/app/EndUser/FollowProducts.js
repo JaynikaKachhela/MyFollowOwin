@@ -23,6 +23,7 @@ var FollowProductcomponent = (function () {
         this.followedProduct1 = new Array();
         this.productsUpdate = new productUpdate_1.ProductUpdate();
         this.productUpdates = new Array();
+        this.userId = 'shgfjhgfjwg';
         this.product = new product_1.Product();
     }
     FollowProductcomponent.prototype.ngOnInit = function () {
@@ -52,7 +53,7 @@ var FollowProductcomponent = (function () {
     };
     FollowProductcomponent.prototype.getFollowedProduct = function () {
         var _this = this;
-        var displayOwner = this.userservice.getFollowedProduct()
+        var displayOwner = this.userservice.getFollowedProduct(this.userId)
             .subscribe(function (products) {
             _this.followedProduct = products;
             console.log(_this.followedProduct);

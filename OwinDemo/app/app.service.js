@@ -93,8 +93,8 @@ var Service = (function () {
         return this.http.get(this.productUrl)
             .map(function (response) { return response.json(); });
     };
-    Service.prototype.getFollowedProduct = function () {
-        return this.http.get(this.productUrl + '/productOwner')
+    Service.prototype.getFollowedProduct = function (userId) {
+        return this.http.get(this.productUrl + "/" + userId)
             .map(function (response) { return response.json(); });
     };
     Service.prototype.deleteFollower = function (product) {
