@@ -1,24 +1,40 @@
-﻿<h1>New Product</h1>
+﻿<h2>New Product</h2>
     <div [hidden]="newProduct" class="form-group">
         <div class="form-horizontal">
             <form #addProduct="ngForm" class="form-horizontal">
                 <b>ProductName:</b><br />
-                <input type="text" #Name="ngForm" ngControl="Name" [(ngModel)]="product.Name" required /><br />
+                <input class="form-control" #Name="ngForm" type="text" [(ngModel)]="product.Name" ngControl="Name" id="Name" required pattern="^[a-zA-Z][a-zA-Z\\s]+$" /><br />
+                <div [hidden]="Name.valid || Name.pristine" class="alert alert-danger">
+                    Product name must not be blank and should contain character.
+                </div>
                 <b>Description:</b><br />
-                <input type="text" #Description="ngForm" ngControl="Description" [(ngModel)]="product.Description" required /><br />
+                <input class="form-control" type="text" #Description="ngForm" ngControl="Description" [(ngModel)]="product.Description" id="Description" required /><br />
+                <div [hidden]="Description.valid || Description.pristine" class="alert alert-danger">
+                    you have to provide decription.
+                </div>
                 <b>Type:</b><br />
-                <select #Type="ngForm" [(ngModel)]="product.Type" ngControl="Type">
+                <select class="form-control" #Type="ngForm" [(ngModel)]="product.Type" ngControl="Type">
                     <option value="Mobile">Mobile</option>
                     <option value="Web">Web</option>
                     <option value="IOT">IOT</option>
                 </select><br />
                 <b>HomepageUrl:</b><br />
-                <input type="text" #HomepageUrl="ngForm" ngControl="HomepageUrl" [(ngModel)]="product.HomepageUrl"  /><br />
+                <input class="form-control" type="text" #HomepageUrl="ngForm" ngControl="HomepageUrl" [(ngModel)]="product.HomepageUrl" id="HomepageUrl" pattern="^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$" /><br />
+                <div [hidden]="HomepageUrl.valid || HomepageUrl.pristine" class="alert alert-danger">
+                    please! Enter valid Url.
+                </div>
                 <b>PlaystoreUrl:</b><br />
-                <input type="text" #PlaystoreURL="ngForm" ngControl="PlaystoreUrl" [(ngModel)]="product.PlaystoreUrl"  /><br />
+                <input class="form-control" type="text" #PlaystoreURL="ngForm" ngControl="PlaystoreUrl" [(ngModel)]="product.PlaystoreUrl" id="PlaystoreUrl" pattern="^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$" /><br />
+                <div [hidden]="PlaystoreURL.valid || PlaystoreURL.pristine" class="alert alert-danger">
+                    please! Enter valid Url.
+                </div>
                 <b>AppstoreUrl:</b><br />
-                <input type="text" #AppstoreUrl="ngForm" ngControl="AppstoreUrl" [(ngModel)]="product.AppstoreUrl"  /><br /><br />
-                <button class='btn-primary' (click)="onSubmit(product)">Add</button>
+                <input class="form-control" type="text" #AppstoreUrl="ngForm" ngControl="AppstoreUrl" [(ngModel)]="product.AppstoreUrl" id="AppstoreUrl" pattern="^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$" /><br />
+                <div [hidden]="AppstoreUrl.valid || AppstoreUrl.pristine" class="alert alert-danger">
+                    please! Enter valid Url.
+                </div><br/>
+                
+                <button class='btn-primary' [disabled]="!addProduct.form.valid" (click)="onSubmit(product)">AddProduct</button>
             </form>
         </div>
     </div>

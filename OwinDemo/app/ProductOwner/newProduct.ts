@@ -4,6 +4,8 @@ import {Product} from '../Model/product'
 import { Service } from '../app.service';
 import {FORM_DIRECTIVES} from '@angular/common';
 
+
+
 @Component({
     selector: "newProduct",
     templateUrl: "app/ProductOwner/newProduct.html",

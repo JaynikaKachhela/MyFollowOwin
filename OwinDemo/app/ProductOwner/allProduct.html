@@ -1,5 +1,5 @@
-﻿<div class='table-responsive'>
-    <br /><h2 color="blue">AllProducts</h2>
+﻿<h2>AllProducts</h2>
+<div class='table-responsive'>
     <table class='table'>
         <tr>
             <th>ProductName</th>
@@ -21,7 +21,6 @@
                 <h6 *ngIf="product.Type===1">Mobile</h6>
                 <h6 *ngIf="product.Type===2">web</h6>
                 <h6 *ngIf="product.Type===3">IoT</h6>
-
             </td>
             <td>
                 {{product.HomepageUrl}}

@@ -1,7 +1,7 @@
 ﻿<div *ngIf="!detailProduct">
     <div *ngIf="!productUpdate">
         <div *ngIf="!updates">
-            <br /><h2 color="blue">Own Products</h2>
+            <h2>Own Products</h2>
             <table class="table table-striped">
                 <tr>
                     <th>ProductName</th>
@@ -49,39 +49,71 @@
 <div *ngIf="editProduct">
     <form #addProduct="ngForm" class="form-horizontal">
         <b>ProductName:</b><br />
-        <input type="text" #ProductName="ngForm" ngControl="Name" [(ngModel)]="product.Name" required /><br />
+        <input class="form-control" #Name="ngForm" type="text" [(ngModel)]="product.Name" ngControl="Name" id="Name" required pattern="^[a-zA-Z][a-zA-Z\\s]+$" /><br />
+        <div [hidden]="Name.valid || Name.pristine" class="alert alert-danger">
+             Product name must not be blank and should contain character.
+        </div>
         <b>Description:</b><br />
-        <input type="text" #Description="ngForm" ngControl="Description" [(ngModel)]="product.Description" required /><br />
+        <input class="form-control" type="text" #Description="ngForm" ngControl="Description" [(ngModel)]="product.Description" id="Description" required /><br />
+        <div [hidden]="Description.valid || Description.pristine" class="alert alert-danger">
+            you have to provide decription.
+        </div>
         <b>Type:</b><br />
-        <select #Type="ngForm" [(ngModel)]="product.Type" ngControl="Type">
+        <select class="form-control" #Type="ngForm" [(ngModel)]="product.Type" ngControl="Type">
             <option value="Mobile">Mobile</option>
             <option value="Web">Web</option>
             <option value="IOT">IOT</option>
         </select><br />
         <b>HomepageUrl:</b><br />
-        <input type="text" #HomepageUrl="ngForm" ngControl="HomepageUrl" [(ngModel)]="product.HomepageUrl" /><br />
+        <input class="form-control" type="text" #HomepageUrl="ngForm" ngControl="HomepageUrl" [(ngModel)]="product.HomepageUrl" id="HomepageUrl" pattern="^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$" /><br />
+        <div [hidden]="HomepageUrl.valid || HomepageUrl.pristine" class="alert alert-danger">
+            please! Enter valid Url.
+        </div>
         <b>PlaystoreUrl:</b><br />
-        <input type="text" #PlaystoreURL="ngForm" ngControl="PlaystoreUrl" [(ngModel)]="product.PlaystoreUrl" /><br />
+        <input class="form-control" type="text" #PlaystoreURL="ngForm" ngControl="PlaystoreUrl" [(ngModel)]="product.PlaystoreUrl" id="PlaystoreUrl" pattern="^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$" /><br />
+        <div [hidden]="PlaystoreURL.valid || PlaystoreURL.pristine" class="alert alert-danger">
+            please! Enter valid Url.
+        </div>
         <b>AppstoreUrl:</b><br />
-        <input type="text" #AppstoreUrl="ngForm" ngControl="AppstoreUrl" [(ngModel)]="product.AppstoreUrl" /><br /><br />
-        <button class='btn-primary' (click)="onEdit(product)">Save</button>
+        <input class="form-control" type="text" #AppstoreUrl="ngForm" ngControl="AppstoreUrl" [(ngModel)]="product.AppstoreUrl" id="AppstoreUrl" pattern="^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$" /><br />
+        <div [hidden]="AppstoreUrl.valid || AppstoreUrl.pristine" class="alert alert-danger">
+            please! Enter valid Url.
+        </div><br />
+        <button class='btn-primary' [disabled]="!addProduct.form.valid" (click)="onEdit(product)">Save</button>
         <button class='btn-primary' (click)="onBack()">Back</button>
     </form>
 </div>
 
 <div *ngIf="detailProduct">
-    <h5>ProductName:{{product.Name}}</h5>
-    <h5>Description:{{product.Description}}</h5>
-    <h5>
-        Type:
-        <h6 *ngIf="product.Type===1">Mobile</h6>
-        <h6 *ngIf="product.Type===2">web</h6>
-        <h6 *ngIf="product.Type===3">IoT</h6>
-    </h5>
-    <h5>HomepageUrl:{{product.HomepageUrl}}</h5>
-    <h5>PlaystoreUrl:{{product.PlaystoreUrl}}</h5>
-    <h5>AppstoreUrl:{{product.AppstoreUrl}}</h5>
+    <h2>Product {{product.Name}}'s Details</h2>
+    <table>
+        <tr>
+            <th>ProductName:</th>
+            <td>{{product.Name}}</td>
+        </tr>
+        <tr>
+            <th>Description:</th>
+            <td>{{product.Description}}</td>
+        </tr>
+        <tr>
+            <th>Type:</th>
+            <td><font *ngIf="product.Type===1">Mobile</font><font *ngIf="product.Type===2">web</font><font *ngIf="product.Type===3">IoT</font></td>
+        </tr>
+        <tr>
+            <th>HomepageUrl:</th>
+            <td>{{product.HomepageUrl}}</td>
+        </tr>
+        <tr>
+            <th>PlaystoreUrl:</th>
+            <td>{{product.PlaystoreUrl}}</td>
+        </tr>
+        <tr>
+            <th>AppstoreUrl:</th>
+            <td>{{product.AppstoreUrl}}</td>
+        </tr>
 
+    </table>
+  
     <button class='btn-primary' (click)="newProductUpdate(product)">NewProductUpdate</button>
     <button class='btn-primary' (click)="showUpdates(product.Id)">ProductUpdates</button>
     <button class='btn-primary' (click)="onBack()">Back</button>
@@ -104,32 +136,33 @@
                 {{productUpdate.Detail}}
             </td>
             <td>
-                <img [src]="productUpdate.Media">
+                <img [src]="productUpdate.Media" alt="Image" height="100" width="100">
             </td>
         </tr>
     </table>
 </div>
 
 <div *ngIf="productUpdate">
-    <h3>New Update</h3>
+    <h2>New Update</h2>
     <form #addProductUpdate="ngForm" class="form-horizontal">
         <b>ProductName:</b><br />
-        <input type="text" #ProductName="ngForm" ngControl="Name" [(ngModel)]="product.Name" required /><br />
+        <input class="form-control" type="text" disabled  #ProductName="ngForm" ngControl="Name" [(ngModel)]="product.Name" /><br />
        
         <b>Introduction:</b><br />
-        <input type="text" #Introduction="ngForm" ngControl="Introduction" id="Name"[(ngModel)]="productsUpdate.Introduction" required /><br />
+        <input class="form-control" type="text" #Introduction="ngForm" ngControl="Introduction" id="Name"[(ngModel)]="productsUpdate.Introduction" required /><br />
         <div [hidden]="Introduction.valid || Introduction.pristine" class="alert alert-danger">
-            This is required field
+            This is required field.
         </div>
 
         <b>Detail:</b><br />
-        <input type="text" #Detail="ngForm" ngControl="Detail" [(ngModel)]="productsUpdate.Detail" required /><br />
+        <input class="form-control" type="text" #Detail="ngForm" ngControl="Detail" [(ngModel)]="productsUpdate.Detail" /><br />
+        
         <b>Media:</b><br />
-        <input class="btn-file" type="file" image-upload (imageSelected)="imageUpload($event)" #Media="ngForm" [(ngModel)]="productsUpdate.Media" ngControl="Media" id="Media" /><br />
-         <!--<img [src]="src" [hidden]="!src">
-        <input class="btn-file" type="file" #Media="ngForm" [(ngModel)]="productsUpdate.Media" ngControl="Media" id="Media"/>-->
-
-        <button class='btn-primary' (click)="newUpdate(productsUpdate)">AddProductUpdate</button>
+        <!--<input class="form-control" type="file" image-upload (imageSelected)="imageUpload($event)" #Media="ngForm" [(ngModel)]="productsUpdate.Media" ngControl="Media" id="Media" /><br />-->
+        <input class="form-control" type="file" #Media="ngForm" [(ngModel)]="productsUpdate.Media" ngControl="Media" id="Media" /><br />
+        <!--<img [src]="productUpdate.Media" [hidden]="!productsUpdate.Media"/><br/>-->
+        
+        <button class='btn-primary' [disabled]="!addProductUpdate.form.valid" (click)="newUpdate(productsUpdate)">AddProductUpdate</button>
         <button class='btn-primary' (click)="onBack()">Product List</button>
     </form>
 </div>
