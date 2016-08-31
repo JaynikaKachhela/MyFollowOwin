@@ -78,8 +78,7 @@ namespace OwinDemo.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
+                    var roleResult = this.UserManager.AddToRole(user.Id, "EndUser");
                     SendMail(user); 
                     return RedirectToAction("SuccessfullyRegister", "Account");
                 }
@@ -128,7 +127,6 @@ namespace OwinDemo.Controllers
                 if (user.Email == email)
                 {
                     user.EmailConfirmed = true;
-                    var roleResult = this.UserManager.AddToRole(user.Id, "EndUser");
                     await UserManager.UpdateAsync(user);
                     await SignInAsync(user);
                     return RedirectToAction("Login", "", new { ConfirmedEmail = user.Email });

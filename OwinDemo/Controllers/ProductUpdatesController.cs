@@ -9,6 +9,8 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using OwinDemo.Models;
+using System.Web;
+using System.IO;
 
 namespace OwinDemo.Controllers
 {
@@ -19,12 +21,19 @@ namespace OwinDemo.Controllers
       
         // POST: api/ProductUpdates
         [ResponseType(typeof(ProductUpdate))]
+        [HttpPost]
         public IHttpActionResult PostProductUpdate(ProductUpdate productUpdate)
         {
             //if (!ModelState.IsValid)
             //{
             //    return BadRequest(ModelState);
             //}
+            //string filePath = productUpdate.Media;
+            //var postedFile = HttpContext.Current.Request.Files[filePath];
+            //string uploadFolderPath = HttpContext.Current.Server.MapPath("~/App_Data/UploadedMedia"+postedFile.FileName);
+            //postedFile.SaveAs(filePath);
+            //productUpdate.Media=uploadFolderPath;
+            
             DateTime Now = DateTime.Now;
             productUpdate.CreatedDate = Now;
             productUpdate.LastModifiedDate = Now;
@@ -33,12 +42,6 @@ namespace OwinDemo.Controllers
 
             return CreatedAtRoute("DefaultApi", new { id = productUpdate.Id }, productUpdate);
         }
-
-        //// GET: api/ProductUpdates
-        //public IQueryable<ProductUpdate> GetProductUpdates()
-        //{
-        //    return db.ProductUpdates;
-        //}
 
         // GET: api/ProductUpdates/5
         [ResponseType(typeof(ProductUpdate))]
@@ -55,6 +58,13 @@ namespace OwinDemo.Controllers
             }
             return productUpdates.AsQueryable();
         }
+
+
+        //// GET: api/ProductUpdates
+        //public IQueryable<ProductUpdate> GetProductUpdates()
+        //{
+        //    return db.ProductUpdates;
+        //}
 
         //// PUT: api/ProductUpdates/5
         //[ResponseType(typeof(void))]

@@ -33,9 +33,9 @@ export class NewProductcomponent {
             function (response) { console.log("Success Response" + response) },
             function (error) { console.log("Error happened" + error) },
             () => {
-                this.newProduct=true;
+                this.newProduct = true;
             });
         console.log("Insered !!!");
-  
+
     }
 }

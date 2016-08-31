@@ -11,7 +11,7 @@ import { Service } from '../app.service';
     selector: "products",
     templateUrl: "app/EndUser/followProducts.html",
     providers: [Service],
-    directives: [ROUTER_DIRECTIVES,FORM_DIRECTIVES]
+    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES]
 })
 
 export class FollowProductcomponent implements OnInit {
@@ -35,7 +35,7 @@ export class FollowProductcomponent implements OnInit {
     }
     ngOnInit() {
         this.getFollowedProduct();
-   
+
     }
 
     unfollowProduct(product: Product) {
@@ -51,7 +51,7 @@ export class FollowProductcomponent implements OnInit {
     OnBack() {
         this.updates = false;
     }
-    showUpdates(productId: number,productName:string) {
+    showUpdates(productId: number, productName: string) {
         this.updates = true;
         this.ProductName = productName;
         var productUpdates = this.userservice.getProductUpdates(productId)
@@ -67,12 +67,12 @@ export class FollowProductcomponent implements OnInit {
         var displayOwner = this.userservice.getFollowedProduct(this.userId)
             .subscribe((products) => {
                 this.followedProduct = products
-                
+
                 console.log(this.followedProduct);
             }, err => {
                 this.errorMessage = err;
             });
-        
+
 
     }
 }

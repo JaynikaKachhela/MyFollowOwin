@@ -13,7 +13,7 @@ export class AdminComponent implements OnInit {
 
     owner: Owners;
     Click: boolean = false;
-   
+
     errorMessage: string;
     constructor(private adminservice: Service) {
         this.owners = new Array<Owners>();
@@ -24,7 +24,7 @@ export class AdminComponent implements OnInit {
     ngOnInit() {
         this.getOwners();
     }
-       
+
     getOwners() {
         var displayOwner = this.adminservice.getOwner()
             .subscribe((owners) => {
@@ -37,31 +37,33 @@ export class AdminComponent implements OnInit {
     UpdateOwnerData() {
         this.adminservice.UpdateOwnerState(this.owner)
             .subscribe(
-                    function (response) { console.log("Success Response" + response) },
-                    function (error) { console.log("Error happened" + error) },
-                    () => { this.getOwners(); 
+            function (response) { console.log("Success Response" + response) },
+            function (error) { console.log("Error happened" + error) },
+            () => {
+                this.getOwners();
             });
     }
     deleteOwnerData(ownerId: string) {
         this.adminservice.deleteOwnerState(this.owner.Id)
             .subscribe(
-                   function (response) { console.log("Success Response" + response) },
-                   function (error) { console.log("Error happened" + error) },
-                   () => {this.getOwners(); 
+            function (response) { console.log("Success Response" + response) },
+            function (error) { console.log("Error happened" + error) },
+            () => {
+                this.getOwners();
             });
-       
+
     }
 
     Reject(ownerId: string) {
         this.Click = true;
         this.owner.Id = ownerId;
         this.deleteOwnerData(this.owner.Id);
-      
+
     }
     Approve(ownerId: string) {
         this.Click = true;
         this.owner.Id = ownerId;
         this.UpdateOwnerData();
-       
+
     }
 }

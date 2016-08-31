@@ -38,7 +38,7 @@ export class Service {
             .map(response => response.json());
     }
     getLoginUser() {
-        return this.http.get(this.ownerUrl+"/loggedUser")
+        return this.http.get(this.ownerUrl + "/loggedUser")
             .map(response => response.json());
     }
     deleteOwnerState(ownerId: string) {
@@ -103,7 +103,7 @@ export class Service {
             .map(response => response.json());
     }
 
-    getFollowedProduct(userId:string) {
+    getFollowedProduct(userId: string) {
         return this.http.get(this.productUrl + "/" + userId)
             .map(response => response.json());
     }

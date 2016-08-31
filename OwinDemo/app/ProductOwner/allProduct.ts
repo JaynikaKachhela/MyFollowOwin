@@ -14,7 +14,7 @@ export class AllProductcomponent {
     allProducts: Array<Product>;
     product: Product;
     errorMessage: string;
-  
+
     constructor(private service: Service) {
         this.getAllProducts();
     }
@@ -35,7 +35,7 @@ export class AllProductcomponent {
             () => {
                 this.getAllProducts();
             });
-      
+
         console.log("Added...");
     }
 }

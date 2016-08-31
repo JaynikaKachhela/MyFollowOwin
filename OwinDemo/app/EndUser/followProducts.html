@@ -1,5 +1,5 @@
 ﻿﻿<div class='table-responsive' *ngIf="!updates">
-    <h2 >FollowingProducts</h2>
+    <h2>FollowingProducts</h2>
     <table class='table'>
         <tr>
             <th>ProductName</th>
@@ -55,7 +55,7 @@
                 {{productUpdate.Detail}}
             </td>
             <td>
-                <img [src]="productUpdate.Media" alt="Image" height="100" width="100" >
+                <img [src]="productUpdate.Media" alt="{{productUpdate.Media}}" height="100" width="100">
             </td>
         </tr>
     </table>

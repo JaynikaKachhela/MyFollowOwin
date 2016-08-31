@@ -8,31 +8,31 @@ var newProduct_1 = require('./ProductOwner/newProduct');
 var allProduct_1 = require('./ProductOwner/allProduct');
 var routes = [
     {
-        path: 'products',
+        path: 'User/Index/products',
         component: Product_1.Productcomponent
     },
     {
-        path: 'followProducts',
+        path: 'User/ProductOwner/followProducts',
         component: FollowProducts_1.FollowProductcomponent
     },
     {
-        path: 'followedProducts',
+        path: 'User/Index/followedProducts',
         component: FollowProducts_1.FollowProductcomponent
     },
     {
-        path: 'ownProducts',
+        path: 'User/ProductOwner/ownProducts',
         component: ownProduct_1.OwnProductcomponent
     },
     {
-        path: 'newProduct',
+        path: 'User/ProductOwner/newProduct',
         component: newProduct_1.NewProductcomponent
     },
     {
-        path: 'allProduct',
+        path: 'User/ProductOwner/allProduct',
         component: allProduct_1.AllProductcomponent
     },
     {
-        path: 'tobeProductOwner',
+        path: 'User/Index/tobeProductOwner',
         component: tobeProductOwner_1.ToBeProductOwnercomponent
     }
 ];

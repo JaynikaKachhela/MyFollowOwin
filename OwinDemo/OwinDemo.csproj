@@ -353,7 +353,7 @@
     <Content Include="Views\User\ProductOwner.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\UploadedMedia\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

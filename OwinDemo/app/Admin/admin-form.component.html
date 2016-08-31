@@ -1,5 +1,5 @@
 ﻿<h2>Admin</h2>
-<br/>
+<br />
 <table class='table' *ngIf="!click">
     <tr>
         <th>UserName</th>
@@ -16,8 +16,8 @@
         <td>{{owner.ProductOwner.FoundedYear}}</td>
         <td>{{owner.ProductOwner.WebsiteUrl}}</td>
         <td>
-                <button class='btn-primary' (click)="Approve(owner.Id)">Approve</button>
-                <button class='btn-primary' (click)="Reject(owner.Id)">Reject</button>
+            <button class='btn-primary' (click)="Approve(owner.Id)">Approve</button>
+            <button class='btn-primary' (click)="Reject(owner.Id)">Reject</button>
 
         </td>
     </tr>

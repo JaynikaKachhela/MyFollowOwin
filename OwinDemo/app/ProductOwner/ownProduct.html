@@ -51,7 +51,7 @@
         <b>ProductName:</b><br />
         <input class="form-control" #Name="ngForm" type="text" [(ngModel)]="product.Name" ngControl="Name" id="Name" required pattern="^[a-zA-Z][a-zA-Z\\s]+$" /><br />
         <div [hidden]="Name.valid || Name.pristine" class="alert alert-danger">
-             Product name must not be blank and should contain character.
+            Product name must not be blank and should contain character.
         </div>
         <b>Description:</b><br />
         <input class="form-control" type="text" #Description="ngForm" ngControl="Description" [(ngModel)]="product.Description" id="Description" required /><br />
@@ -113,7 +113,7 @@
         </tr>
 
     </table>
-  
+
     <button class='btn-primary' (click)="newProductUpdate(product)">NewProductUpdate</button>
     <button class='btn-primary' (click)="showUpdates(product.Id)">ProductUpdates</button>
     <button class='btn-primary' (click)="onBack()">Back</button>
@@ -146,22 +146,22 @@
     <h2>New Update</h2>
     <form #addProductUpdate="ngForm" class="form-horizontal">
         <b>ProductName:</b><br />
-        <input class="form-control" type="text" disabled  #ProductName="ngForm" ngControl="Name" [(ngModel)]="product.Name" /><br />
-       
+        <input class="form-control" type="text" disabled #ProductName="ngForm" ngControl="Name" [(ngModel)]="product.Name" /><br />
+
         <b>Introduction:</b><br />
-        <input class="form-control" type="text" #Introduction="ngForm" ngControl="Introduction" id="Name"[(ngModel)]="productsUpdate.Introduction" required /><br />
+        <input class="form-control" type="text" #Introduction="ngForm" ngControl="Introduction" id="Name" [(ngModel)]="productsUpdate.Introduction" required /><br />
         <div [hidden]="Introduction.valid || Introduction.pristine" class="alert alert-danger">
             This is required field.
         </div>
 
         <b>Detail:</b><br />
         <input class="form-control" type="text" #Detail="ngForm" ngControl="Detail" [(ngModel)]="productsUpdate.Detail" /><br />
-        
+
         <b>Media:</b><br />
-        <!--<input class="form-control" type="file" image-upload (imageSelected)="imageUpload($event)" #Media="ngForm" [(ngModel)]="productsUpdate.Media" ngControl="Media" id="Media" /><br />-->
-        <input class="form-control" type="file" #Media="ngForm" [(ngModel)]="productsUpdate.Media" ngControl="Media" id="Media" /><br />
+        <input class="form-control" type="file" image-upload (imageSelected)="imageUpload($event)" #Media="ngForm" [(ngModel)]="productsUpdate.Media" ngControl="Media" id="Media" /><br />
+        <!--<input class="form-control" type="file" #Media="ngForm" [(ngModel)]="productsUpdate.Media" ngControl="Media" id="Media" /><br />-->
         <!--<img [src]="productUpdate.Media" [hidden]="!productsUpdate.Media"/><br/>-->
-        
+
         <button class='btn-primary' [disabled]="!addProductUpdate.form.valid" (click)="newUpdate(productsUpdate)">AddProductUpdate</button>
         <button class='btn-primary' (click)="onBack()">Product List</button>
     </form>

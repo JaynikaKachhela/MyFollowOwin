@@ -10,31 +10,31 @@ import {AllProductcomponent}from './ProductOwner/allProduct'
 
 const routes: RouterConfig = [
     {
-        path: 'products',
+        path: 'User/Index/products',
         component: Productcomponent
     },
     {
-        path: 'followProducts',
+        path: 'User/ProductOwner/followProducts',
         component: FollowProductcomponent
     },
     {
-        path: 'followedProducts',
+        path: 'User/Index/followedProducts',
         component: FollowProductcomponent
     },
     {
-        path: 'ownProducts',
+        path: 'User/ProductOwner/ownProducts',
         component: OwnProductcomponent
     },
     {
-        path: 'newProduct',
+        path: 'User/ProductOwner/newProduct',
         component: NewProductcomponent
     },
     {
-        path: 'allProduct',
+        path: 'User/ProductOwner/allProduct',
         component: AllProductcomponent
     },
     {
-        path: 'tobeProductOwner',
+        path: 'User/Index/tobeProductOwner',
         component: ToBeProductOwnercomponent
     }
 ];

@@ -19,12 +19,12 @@ export class ToBeProductOwnercomponent implements OnInit {
     productOwner: Owners;
     fillForm: boolean = false;
     isPending: boolean = false;
-   
+
     errorMessage: string;
     constructor(private userservice: Service) {
-       this.owners = new Array<Owner>();
-       this.owner = new Owner();
-       this.fillForm = false;
+        this.owners = new Array<Owner>();
+        this.owner = new Owner();
+        this.fillForm = false;
     }
 
     ngOnInit() {

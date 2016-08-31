@@ -110,7 +110,7 @@ export class OwnProductcomponent implements OnInit {
         console.log("Added");
         this.productsUpdate = new ProductUpdate();
         this.productUpdate = false;
-        setTimeout(() => this.productUpdate= true, 0);
+        setTimeout(() => this.productUpdate = true, 0);
 
     }
 
